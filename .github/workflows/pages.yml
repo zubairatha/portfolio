@@ -28,6 +28,8 @@ jobs:
         env:
           GITHUB_ACTIONS: "true"
           GITHUB_REPOSITORY: ${{ github.repository }}
+      - name: Add .nojekyll file
+        run: touch ./out/.nojekyll
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./out
