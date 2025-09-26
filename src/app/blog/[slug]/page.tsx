@@ -10,18 +10,49 @@ const POSTS_PATH = path.join(process.cwd(), "content", "posts");
 
 type StaticParam = { slug: string };
 
+
 export async function generateStaticParams(): Promise<StaticParam[]>{
+  console.log("=== generateStaticParams called ===");
+  console.log("Current working directory:", process.cwd());
+  console.log("Posts path:", POSTS_PATH);
+  
   try {
     if (!fs.existsSync(POSTS_PATH)) {
       console.warn(`Posts directory not found: ${POSTS_PATH}`);
+      console.log("Directory contents:", fs.readdirSync(process.cwd()));
       return [];
     }
     const files = fs.readdirSync(POSTS_PATH).filter(f => f.endsWith(".mdx"));
     console.log(`Found ${files.length} blog posts:`, files);
-    return files.map(f => ({ slug: f.replace(/\.mdx$/, "") }));
+    const params = files.map(f => ({ slug: f.replace(/\.mdx$/, "") }));
+    console.log("Generated params:", params);
+    return params;
   } catch (error) {
     console.error("Error generating static params:", error);
     return [];
+  }
+}
+
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const full = path.join(POSTS_PATH, `${slug}.mdx`);
+  
+  try {
+    if (!fs.existsSync(full)) {
+      return { title: "Post Not Found" };
+    }
+    
+    const fileContent = fs.readFileSync(full, "utf8");
+    const { data } = matter(fileContent);
+    const frontmatter = data as { title: string; date: string; excerpt?: string };
+    
+    return {
+      title: frontmatter.title,
+      description: frontmatter.excerpt || `Blog post: ${frontmatter.title}`,
+    };
+  } catch (error) {
+    console.error(`Error generating metadata for ${slug}:`, error);
+    return { title: "Post Not Found" };
   }
 }
 
