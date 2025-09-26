@@ -20,7 +20,7 @@ export default function SiteHeader() {
           <div className="text-xl font-semibold tracking-tight">Zubair Atha</div>
           <div className="text-sm text-neutral-500">Projects, writing, and notes on AI</div>
         </Link>
-        <nav className="flex items-center gap-4">
+        <nav className="hidden md:flex items-center gap-4">
           {NAV.map((item) => {
             const active = pathname === item.href || pathname.startsWith(item.href + "/");
             return (
