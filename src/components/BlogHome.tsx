@@ -5,8 +5,8 @@ import { Search, Github, Linkedin, ChevronRight, Calendar, Tag } from "lucide-re
 type Post = { slug:string; title:string; date:string; categories:string[]; excerpt:string; featured?:boolean; };
 
 const SITE = {
-  title: "Your Portfolio",
-  author: "Your Name",
+  title: "My Portfolio",
+  author: "Zubair Atha",
   tagline: "Projects, writing, and notes on AI",
   links: { github: "https://github.com/zubairatha", linkedin: "https://www.linkedin.com/in/zubair-atha/", rss: "#" },
 };
