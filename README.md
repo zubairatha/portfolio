@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Your Portfolio
 
-## Getting Started
+Minimal, content-first portfolio (About, Experience, Blog) built with Next.js App Router, TypeScript, TailwindCSS v4, and MDX.
 
-First, run the development server:
+## Quick start
 
 ```bash
+# From repo root
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# open http://localhost:3000/about
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+If `npm` is not found, ensure Volta is on PATH:
+```bash
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Add a new blog post
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+All posts live in `content/posts/*.mdx`.
 
-## Learn More
+Frontmatter format:
+```md
+---
+title: "Post Title"
+date: "YYYY-MM-DD"   # e.g. 2025-09-26
+categories: ["AI", "Notes"]
+excerpt: "One-sentence summary."
+slug: "optional-custom-slug"  # defaults to filename without .mdx
+---
 
-To learn more about Next.js, take a look at the following resources:
+# Your content here
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Markdown and MDX supported
+- Code blocks, tables, images (serve from /public)
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Example:
+```md
+---
+title: "Hello, Blog"
+date: "2025-09-26"
+categories: ["AI"]
+excerpt: "Kicking the tires on my blog."
+slug: "hello-blog"
+---
+This is a **test** post.
+```
 
-## Deploy on Vercel
+## Blog features
+- Search box filters by title/excerpt
+- Clickable category pills on cards (filters list)
+- Sticky Topics sidebar with counts
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Pages
+- `/about` – basic prose page
+- `/experience` – timeline from `src/data/experience.ts`
+- `/blog` – index with search and topics
+- `/blog/[slug]` – MDX post renderer
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Static export
+`next.config.ts` uses `output: "export"` and sets `basePath` automatically on GitHub Actions to support GitHub Pages.
+
+Build locally:
+```bash
+npm run build
+# static site emitted to ./out
+```
+
+## Customize
+- Header title/tagline in `src/components/SiteHeader.tsx`
+- Social links in `src/components/SiteHeader.tsx` and `src/components/BlogHome.tsx`
+- Experience data in `src/data/experience.ts`

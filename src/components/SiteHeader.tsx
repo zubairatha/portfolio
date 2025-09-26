@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Github, Twitter, Linkedin } from "lucide-react";
+import { Github, Linkedin } from "lucide-react";
 
 const NAV = [
   { href: "/about", label: "About" },
@@ -36,7 +36,6 @@ export default function SiteHeader() {
           })}
           <div className="hidden md:flex items-center gap-2 ml-2">
             <a className="p-2 rounded-lg hover:bg-neutral-100" href="#" aria-label="GitHub"><Github size={18} /></a>
-            <a className="p-2 rounded-lg hover:bg-neutral-100" href="#" aria-label="Twitter"><Twitter size={18} /></a>
             <a className="p-2 rounded-lg hover:bg-neutral-100" href="#" aria-label="LinkedIn"><Linkedin size={18} /></a>
           </div>
         </nav>

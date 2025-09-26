@@ -1,6 +1,6 @@
 "use client";
 import React, { useMemo, useState } from "react";
-import { Search, Github, Twitter, Linkedin, ChevronRight, Calendar, Tag } from "lucide-react";
+import { Search, Github, Linkedin, ChevronRight, Calendar, Tag } from "lucide-react";
 
 type Post = { slug:string; title:string; date:string; categories:string[]; excerpt:string; featured?:boolean; };
 
@@ -8,7 +8,7 @@ const SITE = {
   title: "Your Portfolio",
   author: "Your Name",
   tagline: "Projects, writing, and notes on AI",
-  links: { github: "#", twitter: "#", linkedin: "#", rss: "#" },
+  links: { github: "#", linkedin: "#", rss: "#" },
 };
 
 const TagPill = ({ label }: { label: string }) => (
@@ -43,7 +43,6 @@ export default function BlogHome({ posts }: { posts: Post[] }) {
             <p className="mt-1 text-sm text-neutral-600">I write about AI agents, Large Language Models, and building real products.</p>
             <div className="mt-3 flex items-center gap-2">
               <a className="p-2 rounded-lg hover:bg-neutral-100" href={SITE.links.github}><Github size={18}/></a>
-              <a className="p-2 rounded-lg hover:bg-neutral-100" href={SITE.links.twitter}><Twitter size={18}/></a>
               <a className="p-2 rounded-lg hover:bg-neutral-100" href={SITE.links.linkedin}><Linkedin size={18}/></a>
             </div>
           </section>
@@ -62,7 +61,18 @@ export default function BlogHome({ posts }: { posts: Post[] }) {
                   <div className="mt-1 flex flex-wrap items-center gap-2 text-sm text-neutral-500">
                     <Calendar size={16}/><time dateTime={post.date}>{new Date(post.date).toLocaleDateString(undefined,{year:"numeric",month:"short",day:"2-digit"})}</time>
                   </div>
-                  <div className="mt-2 flex flex-wrap gap-2">{post.categories.map(c=><TagPill key={c} label={c}/>)}</div>
+                  <div className="mt-2 flex flex-wrap gap-2">
+                    {post.categories.map(c=> (
+                      <button
+                        key={c}
+                        onClick={(e)=>{ e.preventDefault(); setActiveCat(c); }}
+                        className="inline-flex items-center rounded-full border border-neutral-200 bg-neutral-100 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wide text-neutral-700 hover:bg-neutral-200"
+                        aria-label={`Filter by ${c}`}
+                      >
+                        {c}
+                      </button>
+                    ))}
+                  </div>
                   <p className="mt-3 text-neutral-700">{post.excerpt}</p>
                   <div className="mt-3 inline-flex items-center gap-1 text-sm font-medium text-neutral-900">Read more <ChevronRight size={16}/></div>
                 </a>
