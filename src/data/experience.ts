@@ -57,10 +57,16 @@ export const ROLES: Role[] = [
   },
 ];
 
-export type Education = { school:string; location:string; degree:string; start:string; end:string };
+export type Education = { school:string; location:string; degree:string; start:string; end:string; bullets?: string[] };
 export const EDUCATION: Education[] = [
-  { school: "Columbia University", location: "New York, US", degree: "MS in Data Science", start: "Aug 2024", end: "Dec 2025" },
-  { school: "Vellore Institute of Technology", location: "Vellore, IN", degree: "BTech Computer Science and Engineering", start: "Sep 2020", end: "Jun 2024" },
+  { school: "Columbia University", location: "New York, US", degree: "MS in Data Science", start: "Aug 2024", end: "Dec 2025", bullets: [
+    "TA @ Columbia QMSS [Fall 2025] — Practicum in Data Analysis",
+    "TA @ Columbia Business School [Spring 2025] — Introduction to Databases for Business Analytics, Python for MBAs",
+    "Data Science Institute Scholar [Spring 2025]",
+  ] },
+  { school: "Vellore Institute of Technology", location: "Vellore, IN", degree: "BTech Computer Science and Engineering", start: "Sep 2020", end: "Jun 2024", bullets: [
+    "Raman Research Award Recipient [Fall 2023]",
+  ] },
 ];
 
 

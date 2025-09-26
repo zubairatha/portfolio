@@ -32,6 +32,11 @@ export default function ExperienceTimeline(){
               </div>
               <div className="text-sm text-neutral-500 mt-1">{e.degree}</div>
               <div className="text-sm text-neutral-500">{e.start} — {e.end}</div>
+              {e.bullets && e.bullets.length > 0 && (
+                <ul className="list-disc pl-5 mt-3 space-y-1 text-neutral-800">
+                  {e.bullets.map((b,j)=>(<li key={j}>{b}</li>))}
+                </ul>
+              )}
             </div>
           </li>
         ))}
