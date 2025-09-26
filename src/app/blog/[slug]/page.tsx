@@ -18,7 +18,7 @@ export default async function BlogPost({ params }:{ params: Promise<{ slug:strin
   if (!fs.existsSync(full)) return notFound();
   const { content, data } = matter(fs.readFileSync(full, "utf8"));
   const frontmatter = data as { title: string; date: string };
-  const components = { pre: MDXPre } as any;
+  const components = { pre: MDXPre } as Record<string, React.ComponentType>;
   const startsWithH1 = /^\s*#\s+/m.test(content);
   return (
     <article className="prose lg:prose-lg max-w-3xl mx-auto px-4 py-10">
@@ -28,5 +28,3 @@ export default async function BlogPost({ params }:{ params: Promise<{ slug:strin
     </article>
   );
 }
-
-

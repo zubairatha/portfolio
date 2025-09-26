@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 export default function SiteFooter() {
   return (
     <footer className="border-t border-neutral-200">
@@ -10,5 +8,3 @@ export default function SiteFooter() {
     </footer>
   );
 }
-
-

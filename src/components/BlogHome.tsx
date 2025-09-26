@@ -11,12 +11,6 @@ const SITE = {
   links: { github: "https://github.com/zubairatha", linkedin: "https://www.linkedin.com/in/zubair-atha/", rss: "#" },
 };
 
-const TagPill = ({ label }: { label: string }) => (
-  <span className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wide text-blue-800">
-    {label}
-  </span>
-);
-
 function classNames(...xs:(string|false|null|undefined)[]){ return xs.filter(Boolean).join(" "); }
 
 export default function BlogHome({ posts }: { posts: Post[] }) {
@@ -107,5 +101,3 @@ export default function BlogHome({ posts }: { posts: Post[] }) {
     </div>
   );
 }
-
-

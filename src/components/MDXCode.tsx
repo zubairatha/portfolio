@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 import { Copy, Check } from "lucide-react";
 
-type PreProps = React.HTMLAttributes<HTMLPreElement> & { children?: any };
+type PreProps = React.HTMLAttributes<HTMLPreElement> & { children?: React.ReactNode };
 
 export default function MDXPre(props: PreProps) {
-  const child = React.Children.toArray(props.children)[0] as any;
+  const child = React.Children.toArray(props.children)[0] as React.ReactElement;
   const className: string = child?.props?.className || "";
   const language = (className.match(/language-([a-z0-9+#-]+)/i)?.[1] || "text").toLowerCase();
   const code: string = typeof child?.props?.children === "string" ? child.props.children : String(child?.props?.children || "");
@@ -28,5 +28,3 @@ export default function MDXPre(props: PreProps) {
     </div>
   );
 }
-
-
