@@ -20,7 +20,7 @@ export default function SiteFooter() {
         </div>
         <div>
           <div className="font-semibold">Contact</div>
-          <p className="mt-2 text-neutral-600">you@domain.com</p>
+          <p className="mt-2 text-neutral-600">zubair.atha09@gmail.com</p>
         </div>
       </div>
     </footer>
