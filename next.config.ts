@@ -6,6 +6,7 @@ const basePath = isCI ? `/${repo}` : "";
 
 const nextConfig: NextConfig = {
   output: "export",
+  trailingSlash: true,
   images: { unoptimized: true },
   basePath,
   assetPrefix: basePath ? `${basePath}/` : undefined,
