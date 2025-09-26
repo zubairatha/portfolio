@@ -1,5 +1,20 @@
 import { ROLES, EDUCATION } from "@/data/experience";
 
+const TAG_COLORS: string[] = [
+  "bg-blue-100 text-blue-800 border-blue-200",
+  "bg-emerald-100 text-emerald-800 border-emerald-200",
+  "bg-amber-100 text-amber-800 border-amber-200",
+  "bg-purple-100 text-purple-800 border-purple-200",
+  "bg-rose-100 text-rose-800 border-rose-200",
+  "bg-sky-100 text-sky-800 border-sky-200",
+  "bg-teal-100 text-teal-800 border-teal-200",
+];
+
+function colorForTag(tag: string): string {
+  let hash = 0; for (let i=0;i<tag.length;i++) hash = (hash*31 + tag.charCodeAt(i)) >>> 0;
+  return TAG_COLORS[hash % TAG_COLORS.length];
+}
+
 export default function ExperienceTimeline(){
   return (
     <div className="mx-auto max-w-3xl px-4 py-10">
@@ -15,7 +30,9 @@ export default function ExperienceTimeline(){
               </div>
               <div className="text-sm text-neutral-500 mt-1">{r.start} — {r.end ?? "Present"}</div>
               <ul className="list-disc pl-5 mt-3 space-y-1 text-neutral-800">{r.bullets.map((b,j)=><li key={j}>{b}</li>)}</ul>
-              {r.skills && <div className="mt-3 flex flex-wrap gap-2">{r.skills.map(s=><span key={s} className="inline-flex items-center rounded-full border border-neutral-200 bg-neutral-100 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wide text-neutral-700">{s}</span>)}</div>}
+              {r.skills && <div className="mt-3 flex flex-wrap gap-2">{r.skills.map(s=>
+                <span key={s} className={`inline-flex items-center rounded-full px-2.5 py-1 text-[11px] font-medium uppercase tracking-wide border ${colorForTag(s)}`}>{s}</span>
+              )}</div>}
             </div>
           </li>
         ))}

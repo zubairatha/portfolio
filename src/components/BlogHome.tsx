@@ -12,7 +12,7 @@ const SITE = {
 };
 
 const TagPill = ({ label }: { label: string }) => (
-  <span className="inline-flex items-center rounded-full border border-neutral-200 bg-neutral-100 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wide text-neutral-700">
+  <span className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wide text-blue-800">
     {label}
   </span>
 );
@@ -66,7 +66,7 @@ export default function BlogHome({ posts }: { posts: Post[] }) {
                       <button
                         key={c}
                         onClick={(e)=>{ e.preventDefault(); setActiveCat(c); }}
-                        className="inline-flex items-center rounded-full border border-neutral-200 bg-neutral-100 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wide text-neutral-700 hover:bg-neutral-200"
+                        className="inline-flex items-center rounded-full border border-blue-200 bg-blue-50 px-2.5 py-1 text-[11px] font-medium uppercase tracking-wide text-blue-800 hover:bg-blue-100"
                         aria-label={`Filter by ${c}`}
                       >
                         {c}
