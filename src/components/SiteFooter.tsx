@@ -5,7 +5,7 @@ export default function SiteFooter() {
     <footer className="border-t border-neutral-200">
       <div className="mx-auto max-w-6xl px-4 py-10 grid grid-cols-1 sm:grid-cols-3 gap-6 text-sm">
         <div>
-          <div className="font-semibold">Your Portfolio</div>
+          <div className="font-semibold">Zubair Atha</div>
           <p className="mt-1 text-neutral-600 max-w-sm">
             Minimal, content-first portfolio theme.
           </p>

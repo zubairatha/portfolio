@@ -8,7 +8,7 @@ const SITE = {
   title: "Your Portfolio",
   author: "Your Name",
   tagline: "Projects, writing, and notes on AI",
-  links: { github: "#", linkedin: "#", rss: "#" },
+  links: { github: "https://github.com/zubairatha", linkedin: "https://www.linkedin.com/in/zubair-atha/", rss: "#" },
 };
 
 const TagPill = ({ label }: { label: string }) => (

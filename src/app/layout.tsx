@@ -4,7 +4,7 @@ import SiteHeader from "@/components/SiteHeader";
 import SiteFooter from "@/components/SiteFooter";
 
 export const metadata: Metadata = {
-  title: "Your Portfolio",
+  title: "Zubair Atha",
   description: "Projects, writing, and notes on AI",
 };
 

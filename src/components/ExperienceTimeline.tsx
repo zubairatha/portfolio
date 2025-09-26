@@ -20,7 +20,7 @@ export default function ExperienceTimeline(){
           </li>
         ))}
       </ol>
-      <h2 className="text-2xl font-semibold tracking-tight mt-12 mb-6">Education</h2>
+      <h2 className="text-3xl font-semibold tracking-tight mt-12 mb-6">Education</h2>
       <ol className="relative border-l border-neutral-200">
         {EDUCATION.map((e,i)=>(
           <li key={i} className="ml-6 mb-8">

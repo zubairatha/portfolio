@@ -15,7 +15,7 @@ export default function SiteHeader() {
     <header className="border-b border-neutral-200 sticky top-0 z-30 bg-white/80 backdrop-blur">
       <div className="mx-auto max-w-6xl px-4 py-3 flex items-center justify-between">
         <Link href="/about" className="block">
-          <div className="text-xl font-semibold tracking-tight">Your Portfolio</div>
+          <div className="text-xl font-semibold tracking-tight">Zubair Atha</div>
           <div className="text-sm text-neutral-500">Projects, writing, and notes on AI</div>
         </Link>
         <nav className="flex items-center gap-4">
@@ -35,8 +35,8 @@ export default function SiteHeader() {
             );
           })}
           <div className="hidden md:flex items-center gap-2 ml-2">
-            <a className="p-2 rounded-lg hover:bg-neutral-100" href="#" aria-label="GitHub"><Github size={18} /></a>
-            <a className="p-2 rounded-lg hover:bg-neutral-100" href="#" aria-label="LinkedIn"><Linkedin size={18} /></a>
+            <a className="p-2 rounded-lg hover:bg-neutral-100" href="https://github.com/zubairatha" aria-label="GitHub"><Github size={18} /></a>
+            <a className="p-2 rounded-lg hover:bg-neutral-100" href="https://www.linkedin.com/in/zubair-atha/" aria-label="LinkedIn"><Linkedin size={18} /></a>
           </div>
         </nav>
       </div>
