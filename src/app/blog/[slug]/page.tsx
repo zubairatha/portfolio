@@ -75,7 +75,7 @@ export default async function BlogPost({ params }:{ params: Promise<{ slug:strin
     return (
       <article className="prose lg:prose-lg max-w-3xl mx-auto px-4 py-10">
         {!startsWithH1 && <h1 className="mb-1">{frontmatter.title}</h1>}
-        <p className="text-sm text-neutral-500 mt-0">{new Date(frontmatter.date).toDateString()}</p>
+        <p className="text-sm text-neutral-500 mt-0">{formatUtcDate(frontmatter.date)}</p>
         <MDXRemote source={content} components={components} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
       </article>
     );
@@ -83,4 +83,16 @@ export default async function BlogPost({ params }:{ params: Promise<{ slug:strin
     console.error(`Error loading blog post ${slug}:`, error);
     return notFound();
   }
+}
+
+function formatUtcDate(dateStr: string): string {
+  const m = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/.exec(dateStr);
+  if (m) {
+    const year = Number(m[1]);
+    const monthIndex = Number(m[2]) - 1;
+    const day = Number(m[3]);
+    return new Date(Date.UTC(year, monthIndex, day)).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "2-digit", timeZone: "UTC" });
+  }
+  const d = new Date(dateStr);
+  return isNaN(+d) ? dateStr : d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "2-digit", timeZone: "UTC" });
 }

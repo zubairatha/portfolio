@@ -1,0 +1,212 @@
+---
+title: "BM25 vs Dense Embeddings: Lessons from Building a Hybrid Search System"
+date: "2025-09-30"
+categories: ["AI", "Search Systems", "Retrieval"]
+excerpt: "A hands-on dive into BM25, dense embeddings, and hybrid fusion: uncovering how old and new search methods work better together."
+---
+
+## intro
+
+when i started this project, i just wanted to know: *“can modern neural embeddings beat BM25 in search?”*
+
+BM25 is old-school keyword matching. embeddings are new-school semantic vectors. i thought the answer would be simple: embeddings crush BM25.
+
+spoiler: nope. the real story is more interesting. BM25 is stubbornly strong, embeddings bring new strengths, and the best results come when you let them **work together**.
+
+---
+
+## 1. meeting the dataset: SciFact
+
+the **SciFact** dataset is like a tiny search engine for scientific fact-checking.
+
+* **corpus**: ~5,000 papers (titles + abstracts).
+* **queries**: ~800 short scientific claims, e.g., *“Vitamin D reduces risk of influenza.”*
+* **qrels**: the “ground truth,” which claims are supported by which papers.
+
+crucial insight: this is a **many-to-many** mapping. one claim can be backed by several papers, and one paper can support multiple claims.
+
+most claims only have **1–5 relevant papers**. so if you miss those few, your recall@10 drops to zero.
+
+---
+
+## 2. BM25: the keyword warrior 
+
+BM25 is from the 1990s, but it’s still everywhere — ElasticSearch, Lucene, even early Google-style engines.
+
+how it works (in human terms):
+
+* break docs and queries into tokens (words).
+* for each query word, score docs that contain it.
+* adjust for two things:
+
+  * **term frequency** (how often the word appears in a doc),
+  * **inverse document frequency (IDF)** (rare words are more valuable).
+
+so “E. coli” in your query is gold, because it’s rare and discriminative. “the” or “study” barely moves the needle.
+
+👉 i think of BM25 as the **literalist friend**: it listens only for the exact words you use, but it’s very good at remembering them.
+
+my results on SciFact:
+
+| k   | recall@k | nDCG@k |
+| --- | -------- | ------ |
+| 5   | 0.71     | 0.61   |
+| 10  | 0.77     | 0.63   |
+| 20  | 0.81     | 0.64   |
+| 100 | 0.88     | 0.66   |
+
+pretty solid! BM25 nails queries where claims and papers share exact terms.
+
+---
+
+## 3. dense embeddings: the semantic explorer 
+
+dense embeddings are the opposite: instead of words, they work in **meaning space**.
+
+* every sentence → a high-dimensional vector.
+* nearby vectors = semantically similar sentences.
+* we compare with cosine similarity.
+
+so even if two texts have no words in common, they can still be “close” in meaning.
+
+example:
+
+* claim: *“gut microbiota”*
+* paper: *“intestinal bacteria”*
+  BM25: nope (no overlap).
+  dense: yep (vectors close).
+
+👉 i think of dense models as the **paraphrase friend**: they don’t care about exact words, they care about what you *meant*.
+
+results with FAISS HNSW:
+
+| k   | recall@k | nDCG@k |
+| --- | -------- | ------ |
+| 5   | 0.83     | 0.74   |
+| 10  | 0.87     | 0.75   |
+| 20  | 0.90     | 0.76   |
+| 100 | 0.97     | 0.77   |
+
+a big improvement over BM25.
+
+---
+
+## 4. pause: recall@k and nDCG explained
+
+metrics confused me at first, so i broke them down with analogies.
+
+* **recall@k** = *“did i find at least one relevant doc within the first k results?”*
+
+  * imagine checking drawers for your keys. if they’re in one of the first 10 drawers, recall@10 = 1. if not, 0.
+
+* **nDCG@k** = *“did i find them early, not buried deep in the list?”*
+
+  * finding your keys in drawer #1 is better than in drawer #10. nDCG rewards that.
+
+so recall = “found it?” and nDCG = “found it quickly?”
+
+dense embeddings improved both, which told me they were finding relevant papers and ranking them earlier.
+
+---
+
+## 5. HNSW: the shortcut graph 
+
+dense embeddings are great, but searching them with FAISS Flat = scanning everything = slow at scale.
+
+enter **HNSW (Hierarchical Navigable Small World graphs)**. it’s like building a **maze of shortcuts** through the embedding space.
+
+* you connect each doc vector to its M closest neighbors.
+* queries walk the graph, hopping through neighbors until they find good matches.
+* fewer hops = faster search, but maybe less accurate.
+
+two dials to tune:
+
+* **M** = number of neighbors per doc. higher M = bigger memory, better accuracy.
+* **efSearch** = how much effort you spend exploring at query time. higher = slower, more accurate.
+
+👉 i think of HNSW as the **friend who knows shortcuts in your city**:
+
+* with a small M and low efSearch, they rush and sometimes miss the best route.
+* with a bigger M and higher efSearch, they take more turns, but almost always get you to the right place.
+
+when i swept M ∈ {16,32,64} and efSearch ∈ {16,64,128,256}, i saw:
+
+* recall climbs with efSearch.
+* memory grows with M.
+* sweet spot: M=32, efSearch=128 → recall ≈ exact search, latency much faster.
+
+---
+
+## 6. RRF fusion: why not both? 
+
+dense beat BM25 overall, but BM25 sometimes nailed rare keywords dense missed.
+
+so i fused them with **Reciprocal Rank Fusion (RRF)**:
+
+* each system gives ranks.
+* for doc d, score = Σ 1 / (k_rrf + rank).
+* k_rrf is just a smoothing constant (i used 60).
+
+intuition:
+
+* a doc at rank 1 gives ~1/61 points.
+* a doc at rank 10 gives ~1/70 points.
+* if a doc is high in *either* BM25 or dense, it bubbles up.
+
+👉 i think of RRF as the **group project rule**: if either partner says “this doc is important,” it gets noticed.
+
+results:
+
+| k   | recall@k | nDCG@k |
+| --- | -------- | ------ |
+| 5   | 0.78     | 0.69   |
+| 10  | 0.84     | 0.71   |
+| 20  | 0.89     | 0.73   |
+| 100 | 0.97     | 0.75   |
+
+hybrid recall@100 = **0.973**, slightly better than dense alone. nDCG sits nicely between the two.
+
+---
+
+## 7. error analysis: when hybrid wins 
+
+in some queries, hybrid beat both baselines.
+
+pattern:
+
+* BM25 finds an exact token doc.
+* dense finds a paraphrased doc.
+* hybrid keeps both → higher recall and nDCG.
+
+it’s like two friends searching with different styles, but together they cover more ground.
+
+---
+
+## 8. latency: making it practical 
+
+* **BM25** = basically instant.
+* **dense HNSW** = tunable latency (ms-level with the right params).
+* **hybrid** = parallelizable. run BM25 and HNSW simultaneously, then fuse results (cheap). latency ≈ max(BM25, HNSW).
+
+so hybrid is not just accurate, it’s also practical for real systems.
+
+---
+
+## 9. what i learned 
+
+* BM25 is a tough baseline — keywords matter more than i thought.
+* dense embeddings bring semantic depth, handling paraphrases and synonyms.
+* HNSW makes dense retrieval actually usable at scale.
+* RRF fusion is absurdly simple, yet powerful: it lets different signals complement each other.
+* error analysis taught me *why* hybrid works, not just *that* it works.
+
+---
+
+## closing
+
+i started with: *“can embeddings beat BM25?”*
+i ended with: *“why not both?”*
+
+for me, the best part was realizing old and new methods aren’t rivals — they’re teammates.
+
+if you’re a student curious about IR: pick a dataset like SciFact, try BM25, try embeddings, build an HNSW index, then fuse them with RRF. you’ll learn a ton about how search engines actually work.

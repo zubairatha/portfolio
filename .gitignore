@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# content
+content/posts/dummy-markdown.md
+content/posts/hello-world.mdx

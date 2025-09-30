@@ -53,7 +53,7 @@ export default function BlogHome({ posts }: { posts: Post[] }) {
                 <a href={`/blog/${post.slug}`} className="group block">
                   <h2 className="text-xl sm:text-2xl font-semibold tracking-tight group-hover:underline underline-offset-4">{post.title}</h2>
                   <div className="mt-1 flex flex-wrap items-center gap-2 text-sm text-neutral-500">
-                    <Calendar size={16}/><time dateTime={post.date}>{new Date(post.date).toLocaleDateString(undefined,{year:"numeric",month:"short",day:"2-digit"})}</time>
+                    <Calendar size={16}/><time dateTime={post.date}>{formatUtcDate(post.date)}</time>
                   </div>
                   <div className="mt-2 flex flex-wrap gap-2">
                     {post.categories.map(c=> (
@@ -100,4 +100,16 @@ export default function BlogHome({ posts }: { posts: Post[] }) {
       </div>
     </div>
   );
+}
+
+function formatUtcDate(dateStr: string): string {
+  const m = /^([0-9]{4})-([0-9]{2})-([0-9]{2})$/.exec(dateStr);
+  if (m) {
+    const year = Number(m[1]);
+    const monthIndex = Number(m[2]) - 1;
+    const day = Number(m[3]);
+    return new Date(Date.UTC(year, monthIndex, day)).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "2-digit", timeZone: "UTC" });
+  }
+  const d = new Date(dateStr);
+  return isNaN(+d) ? dateStr : d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "2-digit", timeZone: "UTC" });
 }
