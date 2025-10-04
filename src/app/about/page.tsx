@@ -4,14 +4,14 @@ export default function AboutPage() {
       <div className="prose prose-neutral text-justify">
         <h1>About</h1>
         <p>
-          Hi! I'm <strong>Zubair Atha</strong>, an MS Data Science student at Columbia University with a background in
-          Computer Science and Engineering. I've built and deployed end-to-end ML solutions across automotive,
+          Hi! I&apos;m <strong>Zubair Atha</strong>, an MS Data Science student at Columbia University with a background in
+          Computer Science and Engineering. I&apos;ve built and deployed end-to-end ML solutions across automotive,
           healthcare, security, and engineering services spanning real-time computer vision pipelines, large-language
           models and foundational ML models on cloud platforms.
         </p>
         <p>
-          Lately, I've been diving into AI agent architecture and high-performance model inference: designing
-          multi-agent frameworks, quantizing models, and orchestrating distributed inference services. I'm passionate
+          Lately, I&apos;ve been diving into AI agent architecture and high-performance model inference: designing
+          multi-agent frameworks, quantizing models, and orchestrating distributed inference services. I&apos;m passionate
           about pushing efficiency at scale and am eager to collaborate on building fast, robust AI systems in
           production.
         </p>

@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { Github, ExternalLink, X } from "lucide-react";
+import { Github, X } from "lucide-react";
 
 type Project = {
   id: number;
