@@ -33,7 +33,7 @@ export const ROLES: Role[] = [
       "Developed a Slack bot for metrics generation and automated new image data preparation pipeline for training readiness using Python, SQL, AWS S3, and Spark, boosting data science team productivity by 200% weekly.",
       "Collaborated with the product team to build custom evaluation scripts using YOLOv8 by analyzing 150+ customer incidents to refine product strategy and boost customer satisfaction.",
     ],
-    skills: ["Python", "SQL", "PyTorch", "AWS", "Spark", "Linux"],
+    skills: ["Python", "SQL", "PyTorch", "AWS", "Spark", "Linux", "ONNX"],
   },
   {
     company: "Vellore Institute of Technology",
