@@ -1,6 +1,6 @@
-# Your Portfolio
+# Zubair Atha's Portfolio
 
-Minimal, content-first portfolio (About, Experience, Blog) built with Next.js App Router, TypeScript, TailwindCSS v4, and MDX.
+Minimal, content-first portfolio showcasing projects, experience, and writing. Built with Next.js App Router, TypeScript, TailwindCSS v4, and MDX.
 
 ## Quick start
 
@@ -49,15 +49,32 @@ slug: "hello-blog"
 This is a **test** post.
 ```
 
-## Blog features
+## Key Features
+
+### Projects Page
+- Interactive project cards with hover effects
+- Glass morphism modal popups with detailed project information
+- Color-coded technology tags
+- Direct GitHub repository links
+- Responsive grid layout
+
+### Blog Features
 - Search box filters by title/excerpt
 - Clickable category pills on cards (filters list)
 - Sticky Topics sidebar with counts
+- MDX support for rich content
+
+### Design
+- Minimal, clean aesthetic
+- Glass morphism effects
+- Responsive design across all devices
+- Smooth animations and transitions
 
 ## Pages
-- `/about` – basic prose page
-- `/experience` – timeline from `src/data/experience.ts`
-- `/blog` – index with search and topics
+- `/about` – About page with glass morphism resume button
+- `/experience` – Timeline of work experience and education
+- `/projects` – Interactive project showcase with modal details
+- `/blog` – Blog index with search and category filtering
 - `/blog/[slug]` – MDX post renderer
 
 ## Static export
@@ -69,7 +86,22 @@ npm run build
 # static site emitted to ./out
 ```
 
+## Project Data
+- Experience data: `src/data/experience.ts`
+- Projects data: `src/components/ProjectsHome.tsx` (parsed from `projects.txt`)
+- Blog posts: `content/posts/*.mdx`
+
 ## Customize
 - Header title/tagline in `src/components/SiteHeader.tsx`
-- Social links in `src/components/SiteHeader.tsx` and `src/components/BlogHome.tsx`
+- Social links and resume link in `src/components/SiteHeader.tsx`
+- Navigation menu in `src/components/SiteHeader.tsx`
 - Experience data in `src/data/experience.ts`
+- Project information in `src/components/ProjectsHome.tsx`
+
+## Technologies Used
+- **Next.js 15** with App Router
+- **TypeScript** for type safety
+- **TailwindCSS v4** for styling
+- **MDX** for blog content
+- **Lucide React** for icons
+- **Glass morphism** design patterns
