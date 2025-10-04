@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Github, Linkedin, Mail, Menu } from "lucide-react";
+import { Github, Linkedin, Mail, Menu, FileText } from "lucide-react";
 import { useState } from "react";
 
 const NAV = [
@@ -39,6 +39,7 @@ export default function SiteHeader() {
           <div className="hidden md:flex items-center gap-2 ml-2">
             <a className="p-2 rounded-lg hover:bg-neutral-100" href="https://github.com/zubairatha" aria-label="GitHub"><Github size={18} /></a>
             <a className="p-2 rounded-lg hover:bg-neutral-100" href="https://www.linkedin.com/in/zubair-atha/" aria-label="LinkedIn"><Linkedin size={18} /></a>
+            <a className="p-2 rounded-lg hover:bg-neutral-100" href="https://drive.google.com/file/d/1aiDXhnJCaFSA8-7Vm_CaUliN6clXI5L_/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Resume"><FileText size={18} /></a>
             <a className="p-2 rounded-lg hover:bg-neutral-100" href="mailto:zubair.atha09@gmail.com" aria-label="Email"><Mail size={18} /></a>
           </div>
         </nav>
@@ -58,6 +59,7 @@ export default function SiteHeader() {
             <div className="flex items-center gap-2 pt-2">
               <a className="p-2 rounded-lg hover:bg-neutral-100" href="https://github.com/zubairatha" aria-label="GitHub"><Github size={18} /></a>
               <a className="p-2 rounded-lg hover:bg-neutral-100" href="https://www.linkedin.com/in/zubair-atha/" aria-label="LinkedIn"><Linkedin size={18} /></a>
+              <a className="p-2 rounded-lg hover:bg-neutral-100" href="https://drive.google.com/file/d/1aiDXhnJCaFSA8-7Vm_CaUliN6clXI5L_/view?usp=sharing" target="_blank" rel="noopener noreferrer" aria-label="Resume"><FileText size={18} /></a>
               <a className="p-2 rounded-lg hover:bg-neutral-100" href="mailto:zubair.atha09@gmail.com" aria-label="Email"><Mail size={18} /></a>
             </div>
           </div>
