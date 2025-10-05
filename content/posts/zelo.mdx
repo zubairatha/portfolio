@@ -1,0 +1,241 @@
+---
+title: "zELO, rerankers, and the “cheap LLM” trick"
+date: "2025-10-05"
+categories: ["AI", "Search Systems", "Retrieval"]
+excerpt: "A walkthrough of zELO, one of the strongest rerankers in the market, and why it works: a few LLM pairwise judgments on a sparse comparison graph feed Elo-style scoring to train a fast, calibrated pointwise reranker."
+---
+
+
+> *I thought reranking was just sorting vectors. Then I read this paper and realized it is more like running a tournament.*
+
+A few weeks ago I went down a rabbit hole to understand why retrieval pipelines feel great at recall but shaky at **true relevance**. Dense embeddings are magic until they are not. When a query quietly mixes law, tax, time, and location, vector closeness starts to wobble. That is where a good **reranker** matters.
+
+This is my study-notes-turned-story after reading **zELO: ELO-inspired Training Method for Rerankers and Embedding Models** and talking through the tricky bits. Paper link: [arXiv:2509.12541](https://arxiv.org/abs/2509.12541). I will keep it student-level intuitive, with examples, and enough math to be precise.
+
+I also attended a discord walkthrough held by ZeroEntropy's CTO: Nicholas Pipitone where he dove deep into model complexity and optimizations used by his team to build this. Here, I try to break it down step by step.
+
+---
+
+## 0) What I first believed, and why it was incomplete
+
+I used to think: embed query and docs, sort by cosine similarity, ship it. That is the **bi-encoder** mindset. It is fast and excellent for **retrieval** of candidates, but it compresses meaning into one fixed vector per text. If relevance depends on several interacting details, a single vector cannot represent all of them cleanly.
+
+A **cross-encoder reranker** reads the **query and one document together**. The model attends across both texts and outputs one score. Example:
+
+* Query: “How do capital gains taxes change if I move from California to Texas this year”
+* Doc A: talks about California residency rules this year
+* Doc B: talks about Texas franchise tax in 2019
+
+A cross-encoder can notice the year, the states, and that “franchise tax” is not capital gains, so Doc A gets a higher score.
+
+---
+
+## 1) The hidden pain: labels for training rerankers
+
+To train a strong reranker you need labels.
+
+* **Pointwise** label: how relevant is $(q, d)$ on an absolute scale, say $[0, 1]$.
+* **Pairwise** label: between $d_i$ and $d_j$, which is better for $q$.
+
+Where do labels come from
+
+* Humans are expensive and can miss subtle domain cues.
+* **Hard negative mining** for contrastive training tries to pick “tricky” negatives. Too easy gives weak signal. Too hard accidentally picks false negatives that are actually better than the positives. Performance improves, peaks, then drops. The paper calls this a **Laffer curve** shape for negative-miner intelligence.
+
+My intuition after reading: the more you outsource “find me adversarial negatives” to a very smart miner, the more likely the miner finds documents that are in fact good, which poisons the signal.
+
+---
+
+## 2) The zELO idea, in one line
+
+Use **LLM ensembles** to judge pairwise preferences on a small subset of document pairs, then convert those pairwise judgments into **absolute scores** with an Elo-like statistical model, then train a **pointwise cross-encoder** on those absolute scores. At inference time you only run the trained pointwise reranker, so it is cheap.
+
+That raises two immediate questions.
+
+1. How do we avoid paying for a quadratic number of LLM comparisons
+2. How do we turn separate, possibly miscalibrated LLM outputs into one consistent scoring scale
+
+The next two sections answer those.
+
+---
+
+## 3) The cost problem and the “tournament” trick
+
+With $K=100$ retrieved docs, full pairwise would be $K(K-1)/2 = 4{,}950$ LLM comparisons per query. That is not viable.
+
+**Trick**: compare only a well chosen **sparse subset** of pairs.
+
+* Build a **random $k$-regular comparison graph** over the $K$ docs. Each doc is compared to exactly $k$ neighbors. Think 6 to 10, not 99.
+* Run the **LLM ensemble** only on those edges to get pairwise preferences $P_{ij}$ for the sampled pairs.
+
+Why this works
+
+* The graph is **connected**, so no document is isolated.
+* The graph has **low diameter**, so any doc is only a few hops away from any other doc, which lets information propagate.
+* Degrees are **balanced** across nodes, so no single doc has a flimsy estimate.
+
+Tournament analogy
+
+* Round robin is too expensive, so you run a smaller tournament where every player plays some strong opponents. You still get good Elo ratings as long as the tournament graph is connected and well mixed.
+
+---
+
+## 4) From pairwise to absolute, with the right amount of math
+
+We want one score per document for the current query. The LLM ensemble gives us pairwise preferences, for example "Doc A beats Doc B with probability $0.8$". Statistical ranking models turn those into absolute scores.
+
+Two classic choices
+
+* **Bradley–Terry** (logistic noise). With latent scores $s_i$:
+  
+  $$P(d_i \succ d_j) = \sigma(s_i - s_j), \quad \sigma(x) = \frac{1}{1+e^{-x}}$$
+  
+* **Thurstone / Case V** (Gaussian noise). With the same $s_i$:
+  
+  $$P(d_i \succ d_j) = \Phi(s_i - s_j)$$
+  
+  where $\Phi$ is the standard normal CDF.
+  The paper reports that the Gaussian fit worked better for their data.
+
+We fit $\{s_i\}$ by maximizing the likelihood of the observed pairwise outcomes on the **sparse** set of compared pairs. That gives one **absolute score per document** for the query.
+
+If the equations feel heavy, keep this intuition
+
+* Think Elo in chess. Players do not all play each other. Elo still recovers sensible absolute ratings from a connected web of matches, even if the web is sparse.
+
+---
+
+## 5) Why these graph rules matter, not just how
+
+Rules the paper enforces on the comparison graph
+
+* **Connectedness**: otherwise two islands cannot be compared at all.
+* **Minimum degree**: documents with only one or two matches produce unstable scores.
+* **Low diameter**: long, skinny chains make uncertainty compound over many hops.
+
+Why these help in practice
+
+* **Information flow**: A beats B, B beats C, then we can place A above C even without a direct match.
+* **Variance control**: more matches per node reduce variance of that node’s score.
+* **Fast convergence**: low diameter plus balanced degrees lets the Elo-like fit stabilize with far fewer pairwise calls than round robin.
+
+Concrete example
+
+* Query: “Python recursion, 2024 update”
+* Doc 7 never faces Doc 1, the best doc, but Doc 7 beats Doc 3 and 5, both of which lose to Doc 1. The model can still infer Doc 7 should be high, even without a direct 7 vs 1 comparison.
+
+---
+
+## 6) Training the pointwise cross-encoder, and the loss
+
+After fitting scores $\{y_i\}$ for the $K$ docs of each query, we train a pointwise reranker $R_{\text{point}}(q, d)$.
+
+* **Input**: the concatenated text `query [SEP] document`, so tokens can attend across both.
+* **Output**: one relevance score $\hat{y}_i \in [0,1]$.
+* **Loss**: the paper trains with **Mean Squared Error (MSE)** on these absolute targets:
+  
+  $$\mathcal{L} = \frac{1}{N}\sum_{(q,d)} \big(R_{\text{point}}(q,d) - y\big)^2$$
+  I double checked, and yes, they use MSE for the pointwise supervised fine-tuning.
+
+At inference time
+
+1. retrieve top $K$ with BM25, embeddings, or hybrid
+2. score each $(q, d)$ with the pointwise reranker
+3. sort by the score
+
+No LLM ensemble, no graph fitting, no Bradley–Terry or Thurstone at inference. Only the trained reranker.
+
+---
+
+## 7) The calibration problem that pairwise fixes
+
+Problem, stated simply
+
+* If you ask an LLM to score two different $(q, d)$ pairs **separately**, their numbers are not calibrated to each other. A score of 0.72 on Pair A and 0.71 on Pair B does not guarantee A is truly better than B. The two numbers live on two local scales.
+
+Why this matters
+
+* Reranking needs **global ordering** across all $K$ docs for the same query. You need one shared ruler.
+
+How the paper addresses it
+
+* Use **pairwise** judgments inside each query's candidate set. "A beats B" is locally well defined. Then use Bradley–Terry or Thurstone to **fit one absolute scale** $\{s_i\}$ across **all** candidates for that query. The fitted scores are globally calibrated for that query. The student pointwise model learns to mimic these calibrated scores.
+
+Tiny example
+
+* Suppose the LLM gives 0.8 to $(q, d_1)$, 0.9 to $(q, d_2)$ in separate calls, but when directly compared it prefers $d_1$ over $d_2$. Pairwise plus Elo resolves this by forcing scores that are **consistent with the head-to-head outcome**, so you end with $s_1 > s_2$ on a single shared scale.
+
+---
+
+## 8) RLHF-style refinement, but targeted
+
+Even after training, sometimes the student model ranks the human top document too low. The paper applies a small loop:
+
+* Detect failure cases, where the human top doc is below a threshold rank.
+* Compare that human top doc against the doc just above it, using the LLM ensemble.
+* Add that one pair to the training set, refit the Elo-like scores, retrain the student.
+
+This is “RLHF-like” because it uses preference feedback to correct the model’s behavior, but it stays cheap because it is targeted, not a full-blown policy optimization run.
+
+---
+
+## 9) How zELO compares to other rerankers
+
+The tables below are pasted from the paper. Metrics are NDCG@10. Benchmarks cover several domains.
+
+**Performance comparison across different tasks and benchmarks** 
+
+| Task/Benchmark | Default(embedding) | cohere-rerank-v3.5 | Salesforce/Llama-rank-v1 | zerank-1-small |  zerank-1 |
+| -------------- | -----------------: | -----------------: | -----------------------: | -------------: | --------: |
+| Code           |              0.678 |              0.724 |                    0.694 |          0.730 | **0.754** |
+| Conversational |              0.250 |              0.571 |                    0.484 |          0.556 | **0.596** |
+| Finance        |              0.839 |              0.824 |                    0.828 |          0.861 | **0.894** |
+| Legal          |              0.703 |              0.804 |                    0.767 |          0.817 | **0.821** |
+| Medical        |              0.619 |              0.750 |                    0.719 |          0.773 | **0.796** |
+| STEM           |              0.401 |              0.510 |                    0.595 |          0.680 | **0.694** |
+
+**Performance comparison across different tasks and benchmarks** 
+
+| Task              | Cohere/rerank-v3.5 | Salesforce/Llama-rank-v1 | VoyageAI/rerank-2 | zerank-1-small |  zerank-1 |
+| ----------------- | -----------------: | -----------------------: | ----------------: | -------------: | --------: |
+| Legal             |              0.718 |                    0.766 |             0.746 |          0.799 | **0.854** |
+| Enterprise Search |              0.674 |                    0.629 |             0.735 |          0.765 | **0.799** |
+| Conversational    |              0.727 |                    0.653 |             0.727 |          0.747 | **0.787** |
+| Healthcare        |              0.706 |                    0.756 |             0.749 |          0.885 | **0.898** |
+
+The paper also reports that zerank-1 is competitive or faster at common input sizes, and that it outperforms simply prompting a cheaper frontier LLM as a reranker when both use the same preference prompts for pairwise judgments. 
+
+---
+
+## 10) The mental model I am keeping
+
+* **Embeddings** are scouts. They quickly fetch a plausible squad of candidates.
+* **LLM ensemble** is a small panel of judges. They do not judge everyone. They judge a few head-to-head matchups inside the squad.
+* **Comparison graph** is the tournament bracket that keeps judging affordable and informative. Connected, low diameter, balanced degree. Information can travel through the bracket.
+* **Bradley–Terry or Thurstone** is the rating office. It turns scattered head-to-heads into one calibrated scoreboard for the squad.
+* **Pointwise cross-encoder** is the trained grader you actually deploy. Given a new query and a candidate document, it produces a score that behaves like the scoreboard, but without needing any judges at runtime.
+
+---
+
+## 11) Closing thoughts, plus suggested readings
+
+This paper reframed reranking for me. Instead of “find harder negatives”, the mindset becomes “ask a few good pairwise questions, then let statistics stitch them into one scale”. The budget saver is not a cheaper LLM, it is the **graph** that picks the right few comparisons.
+
+**Suggested readings and rabbit holes**
+
+* **Hard negative mining**
+  Why contrastive learning needs careful negatives, and where it can fail. Look for triplet loss, in-batch negatives, and hard negative mining papers.
+
+* **Why the comparison graph helps**
+  Random regular graphs, connectedness, low diameter, and why balanced degree stabilizes estimates in Elo-like fitting.
+
+* **Elo, Bradley–Terry, Thurstone**
+  How pairwise outcomes become absolute scores. If you only keep one intuition, keep this: pairwise gives reliable local comparisons, Elo-like models sew them into a global scale.
+
+**My personal learning**
+
+* Calibration matters. Local scores from separate calls are not guaranteed to be on the same ruler. Pairwise inside the candidate set, then Elo-like fitting, gives one ruler per query.
+* The “tournament not round robin” framing is sticky. It is exactly how to remember the LLM cost story.
+* Cross-encoders earn their keep. Reading query and doc together is what lets the final student pick up the fine-grained signals that vectors alone compress away.
+
+Paper link again, for easy access: [zELO: ELO-inspired Training Method for Rerankers and Embedding Models](https://arxiv.org/abs/2509.12541).

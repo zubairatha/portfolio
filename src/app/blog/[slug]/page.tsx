@@ -4,6 +4,8 @@ import matter from "gray-matter";
 import { MDXRemote } from "next-mdx-remote/rsc"; 
 import { notFound } from "next/navigation";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
 import MDXPre from "@/components/MDXCode";
 
 const POSTS_PATH = path.join(process.cwd(), "content", "posts");
@@ -76,7 +78,7 @@ export default async function BlogPost({ params }:{ params: Promise<{ slug:strin
       <article className="prose lg:prose-lg max-w-3xl mx-auto px-4 py-10">
         {!startsWithH1 && <h1 className="mb-1">{frontmatter.title}</h1>}
         <p className="text-sm text-neutral-500 mt-0">{formatUtcDate(frontmatter.date)}</p>
-        <MDXRemote source={content} components={components} options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }} />
+        <MDXRemote source={content} components={components} options={{ mdxOptions: { remarkPlugins: [remarkGfm, remarkMath], rehypePlugins: [rehypeKatex] } }} />
       </article>
     );
   } catch (error) {

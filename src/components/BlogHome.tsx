@@ -108,8 +108,21 @@ function formatUtcDate(dateStr: string): string {
     const year = Number(m[1]);
     const monthIndex = Number(m[2]) - 1;
     const day = Number(m[3]);
-    return new Date(Date.UTC(year, monthIndex, day)).toLocaleDateString(undefined, { year: "numeric", month: "short", day: "2-digit", timeZone: "UTC" });
+    const date = new Date(Date.UTC(year, monthIndex, day));
+    
+    // Use explicit locale to ensure consistent formatting between server and client
+    return date.toLocaleDateString("en-US", { 
+      year: "numeric", 
+      month: "short", 
+      day: "2-digit", 
+      timeZone: "UTC" 
+    });
   }
   const d = new Date(dateStr);
-  return isNaN(+d) ? dateStr : d.toLocaleDateString(undefined, { year: "numeric", month: "short", day: "2-digit", timeZone: "UTC" });
+  return isNaN(+d) ? dateStr : d.toLocaleDateString("en-US", { 
+    year: "numeric", 
+    month: "short", 
+    day: "2-digit", 
+    timeZone: "UTC" 
+  });
 }
