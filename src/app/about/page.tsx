@@ -19,7 +19,7 @@ export default function AboutPage() {
       
       <div className="mt-8 flex justify-center">
         <a
-          href="https://drive.google.com/file/d/1aiDXhnJCaFSA8-7Vm_CaUliN6clXI5L_/view?usp=sharing"
+          href="https://drive.google.com/file/d/16lp87m0BbAx4uTPcdHGCIDHEdSQtywy0/view?usp=sharing"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 px-6 py-3 bg-blue-500/10 backdrop-blur-md border border-blue-400/30 rounded-xl text-neutral-900 font-medium hover:bg-blue-500/15 hover:-translate-y-1 transition-all duration-200"
