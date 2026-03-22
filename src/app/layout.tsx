@@ -7,6 +7,11 @@ import SiteFooter from "@/components/SiteFooter";
 export const metadata: Metadata = {
   title: "Zubair Atha",
   description: "Projects, writing, and notes on AI",
+  icons: {
+    icon: "/icon.jpeg",
+    shortcut: "/icon.jpeg",
+    apple: "/icon.jpeg",
+  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
