@@ -1,3 +1,4 @@
+import LinkArrow from "@/components/LinkArrow";
 import Image from "next/image";
 import Link from "next/link";
 import { ALBUMS } from "@/data/albums";
@@ -20,7 +21,7 @@ export default function Frames() {
                 <div className="album-print-image"><Image src={assetPath(cover.src)} alt={cover.alt} width={cover.width} height={cover.height} sizes="(max-width: 590px) 90vw, 45vw" priority={index === 0} /></div>
                 <div className="print-caption"><span>FIELD NOTES / {String(index + 1).padStart(2, "0")}</span><span>{album.year}</span></div>
               </div>
-              <div className="album-cover-heading"><h2>{album.title}</h2><span aria-hidden="true">↗</span></div>
+              <div className="album-cover-heading"><h2>{album.title}</h2><span aria-hidden="true"><LinkArrow /></span></div>
               <p>{album.note}</p>
               <span className="album-count">{album.photos.length} FRAMES · OPEN ALBUM</span>
             </Link>

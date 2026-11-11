@@ -1,4 +1,5 @@
 "use client";
+import LinkArrow from "@/components/LinkArrow";
 
 import { useRef, useState } from "react";
 import { PROJECTS, type Project } from "@/data/projects";
@@ -20,7 +21,7 @@ export default function ProjectsHome() {
           const card = PROJECT_HIGHLIGHTS[project.id];
           return (
             <button key={project.id} className="project-tile" onClick={() => openProject(project)} aria-haspopup="dialog">
-              <span className="project-tile-top"><span className="eyebrow">{String(project.id + 1).padStart(2, "0")} / PROJECT</span><span aria-hidden="true">↗</span></span>
+              <span className="project-tile-top"><span className="eyebrow">{String(project.id + 1).padStart(2, "0")} / PROJECT</span><span aria-hidden="true"><LinkArrow /></span></span>
               <h3>{project.name}</h3>
               <p>{card.summary}</p>
               <span className="project-tags">{card.tags.map(tag => <span key={tag}>{tag}</span>)}</span>
@@ -36,7 +37,7 @@ export default function ProjectsHome() {
           <p>{selected.description}</p>
           <div className="project-tags">{selected.tags.map(tag => <span key={tag}>{tag}</span>)}</div>
           <ul>{selected.bullets.map(bullet => <li key={bullet}>{bullet}</li>)}</ul>
-          <a className="text-link" href={selected.link} target="_blank" rel="noopener noreferrer">View project repository ↗</a>
+          <a className="text-link" href={selected.link} target="_blank" rel="noopener noreferrer">View project repository{"\u00a0"}<LinkArrow /></a>
         </div>}
       </dialog>
     </>

@@ -1,4 +1,5 @@
 "use client";
+import LinkArrow from "@/components/LinkArrow";
 
 import { useEffect, useRef, useState } from "react";
 import { createLivingScene, type LivingScene, type SceneKind, type ScenePointer } from "@/lib/livingScenes";
@@ -146,7 +147,7 @@ function InspirationNote() {
       <button type="button" className="pond-info" aria-label="Pond inspiration" aria-expanded={open} aria-controls="pond-inspiration"
         onClick={() => setOpen(true)}>i</button>
       <div id="pond-inspiration" className="pond-credit-note" hidden={!open}>
-        Inspiration from: <a href="https://www.daoho.dev/" target="_blank" rel="noopener noreferrer">daoho.dev ↗</a>
+        Inspiration from: <a href="https://www.daoho.dev/" target="_blank" rel="noopener noreferrer">daoho.dev{"\u00a0"}<LinkArrow /></a>
       </div>
     </div>
   );
