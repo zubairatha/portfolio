@@ -1,0 +1,1 @@
+export default function Frames() { return <div className="container frames-blank"><div className="eyebrow">A SPACE FOR PHOTOGRAPHS</div><h1 className="page-title">Frames<span className="text-[var(--accent)]">.</span></h1><p className="frames-note">This page is intentionally left empty for now.</p><div className="frames-rest"/></div>; }
