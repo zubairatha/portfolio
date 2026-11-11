@@ -43,7 +43,7 @@ export default function PhotoAlbum({ album }: { album: Album }) {
           }
         }}
         onClick={event => { if (event.target === event.currentTarget) dialog.current?.close(); }}>
-        <div className="photo-viewer-top"><span id="photo-dialog-title">{album.title}</span><button autoFocus onClick={() => dialog.current?.close()} aria-label="Close photo viewer">Close ✕</button></div>
+        <div className="photo-viewer-top"><span id="photo-dialog-title">{album.title}</span><button type="button" className="dialog-close" autoFocus onClick={() => dialog.current?.close()} aria-label="Close photo viewer"><span aria-hidden="true">✕</span></button></div>
         <div className="photo-viewer-image">{index !== null && <Image key={photo.src} src={assetPath(photo.original)} alt={photo.alt} width={photo.originalWidth} height={photo.originalHeight} loading="eager" sizes="95vw" />}</div>
         <div className="photo-viewer-bottom">
           <p aria-live="polite">{String((index ?? 0) + 1).padStart(2, "0")} / {album.photos.length}{photo.caption && <span>{photo.caption}</span>}</p>

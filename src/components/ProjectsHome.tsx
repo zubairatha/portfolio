@@ -30,7 +30,7 @@ export default function ProjectsHome() {
       </div>
       <dialog ref={dialog} className="project-dialog" aria-labelledby="project-dialog-title"
         onClick={e => { if (e.target === e.currentTarget) dialog.current?.close(); }}>
-        <div className="project-dialog-head"><span className="eyebrow">PROJECT NOTES</span><button autoFocus onClick={() => dialog.current?.close()} aria-label="Close project details">Close ✕</button></div>
+        <div className="project-dialog-head"><span className="eyebrow">PROJECT NOTES</span><button type="button" className="dialog-close" autoFocus onClick={() => dialog.current?.close()} aria-label="Close project details"><span aria-hidden="true">✕</span></button></div>
         {selected && <div className="project-dialog-body">
           <h2 id="project-dialog-title">{selected.name}</h2>
           <p>{selected.description}</p>

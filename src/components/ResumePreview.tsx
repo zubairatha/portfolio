@@ -17,17 +17,11 @@ export default function ResumePreview() {
           <span>Résumé</span><span aria-hidden="true">↗</span>
         </button>
       </div>
-      <dialog ref={dialog} className="resume-dialog" aria-labelledby="resume-title"
+      <dialog ref={dialog} className="resume-dialog" aria-label="Résumé preview"
         onClick={e => { if (e.target === e.currentTarget) dialog.current?.close(); }}>
-        <div className="resume-modal-head">
-          <div><strong id="resume-title">Zubair Atha</strong><span>Résumé · October 2026</span></div>
-          <div className="viewer-actions">
-            <a href={resume} download="Zubair-Atha-Resume.pdf" className="viewer-download">Download ↓</a>
-            <button onClick={() => dialog.current?.close()} autoFocus aria-label="Close résumé preview">Close ✕</button>
-          </div>
-        </div>
+        <button type="button" className="dialog-close resume-close" onClick={() => dialog.current?.close()} autoFocus aria-label="Close résumé preview"><span aria-hidden="true">✕</span></button>
         <object data={`${resume}#toolbar=1&navpanes=0`} type="application/pdf" className="resume-document" aria-label="Zubair Atha résumé PDF">
-          <p className="pdf-fallback">Your browser cannot display this PDF inline. <a href={resume} target="_blank" rel="noopener noreferrer">Open the résumé PDF ↗</a> or use Download above.</p>
+          <p className="pdf-fallback">Your browser cannot display this PDF inline. <a href={resume} target="_blank" rel="noopener noreferrer">Open the résumé PDF ↗</a>.</p>
         </object>
       </dialog>
     </>
