@@ -1,4 +1,4 @@
-export type Photo = { src: string; thumb: string; width: number; height: number; alt: string; original: string; originalWidth: number; originalHeight: number };
+export type Photo = { src: string; thumb: string; width: number; height: number; alt: string; caption: string; original: string; originalWidth: number; originalHeight: number };
 export type Album = { slug: string; title: string; year: string; note: string; cover: number; photos: Photo[] };
 
 export const ALBUMS: Album[] = [
@@ -7,7 +7,7 @@ export const ALBUMS: Album[] = [
     "title": "Grand Canyon",
     "year": "2026",
     "note": "Canyon walls, desert light, and the road between.",
-    "cover": 8,
+    "cover": 20,
     "photos": [
       {
         "src": "/photos/grand-canyon-2026/01.webp",
@@ -17,7 +17,8 @@ export const ALBUMS: Album[] = [
         "alt": "Clouds drifting above layered canyon walls",
         "original": "/photos/grand-canyon-2026/01.jpg",
         "originalWidth": 4202,
-        "originalHeight": 3152
+        "originalHeight": 3152,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/02.webp",
@@ -27,7 +28,8 @@ export const ALBUMS: Album[] = [
         "alt": "Mist over green and red canyon ridges",
         "original": "/photos/grand-canyon-2026/02.jpg",
         "originalWidth": 4608,
-        "originalHeight": 3456
+        "originalHeight": 3456,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/03.webp",
@@ -37,7 +39,8 @@ export const ALBUMS: Album[] = [
         "alt": "A wide canyon beneath low clouds",
         "original": "/photos/grand-canyon-2026/03.jpg",
         "originalWidth": 4608,
-        "originalHeight": 3456
+        "originalHeight": 3456,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/04.webp",
@@ -47,7 +50,8 @@ export const ALBUMS: Album[] = [
         "alt": "Green slopes and layered rock in the canyon",
         "original": "/photos/grand-canyon-2026/04.jpg",
         "originalWidth": 4608,
-        "originalHeight": 3456
+        "originalHeight": 3456,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/05.webp",
@@ -57,7 +61,8 @@ export const ALBUMS: Album[] = [
         "alt": "A river bending around a sandstone cliff",
         "original": "/photos/grand-canyon-2026/05.jpg",
         "originalWidth": 4539,
-        "originalHeight": 3404
+        "originalHeight": 3404,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/06.webp",
@@ -67,7 +72,8 @@ export const ALBUMS: Album[] = [
         "alt": "Sunlight and shadow across a river canyon",
         "original": "/photos/grand-canyon-2026/06.jpg",
         "originalWidth": 4608,
-        "originalHeight": 3456
+        "originalHeight": 3456,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/07.webp",
@@ -77,7 +83,8 @@ export const ALBUMS: Album[] = [
         "alt": "A boat on the blue river below",
         "original": "/photos/grand-canyon-2026/07.jpg",
         "originalWidth": 4608,
-        "originalHeight": 3456
+        "originalHeight": 3456,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/08.webp",
@@ -87,7 +94,8 @@ export const ALBUMS: Album[] = [
         "alt": "Flowing orange sandstone in a slot canyon",
         "original": "/photos/grand-canyon-2026/08.jpg",
         "originalWidth": 4608,
-        "originalHeight": 3456
+        "originalHeight": 3456,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/09.webp",
@@ -97,7 +105,8 @@ export const ALBUMS: Album[] = [
         "alt": "Orange sandstone framing a blue sky",
         "original": "/photos/grand-canyon-2026/09.jpg",
         "originalWidth": 4608,
-        "originalHeight": 3456
+        "originalHeight": 3456,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/10.webp",
@@ -107,7 +116,8 @@ export const ALBUMS: Album[] = [
         "alt": "Sunlit edges of a deep rocky canyon",
         "original": "/photos/grand-canyon-2026/10.jpg",
         "originalWidth": 4608,
-        "originalHeight": 3456
+        "originalHeight": 3456,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/11.webp",
@@ -117,7 +127,8 @@ export const ALBUMS: Album[] = [
         "alt": "Red cliffs and deep canyon shadows",
         "original": "/photos/grand-canyon-2026/11.jpg",
         "originalWidth": 4590,
-        "originalHeight": 3443
+        "originalHeight": 3443,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/12.webp",
@@ -127,7 +138,8 @@ export const ALBUMS: Album[] = [
         "alt": "Layers of sandstone across the canyon",
         "original": "/photos/grand-canyon-2026/12.jpg",
         "originalWidth": 4363,
-        "originalHeight": 3272
+        "originalHeight": 3272,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/13.webp",
@@ -137,7 +149,8 @@ export const ALBUMS: Album[] = [
         "alt": "A canyon basin in afternoon light",
         "original": "/photos/grand-canyon-2026/13.jpg",
         "originalWidth": 4566,
-        "originalHeight": 3424
+        "originalHeight": 3424,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/14.webp",
@@ -147,7 +160,8 @@ export const ALBUMS: Album[] = [
         "alt": "A sunlit ridge above the canyon",
         "original": "/photos/grand-canyon-2026/14.jpg",
         "originalWidth": 4078,
-        "originalHeight": 3059
+        "originalHeight": 3059,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/15.webp",
@@ -157,7 +171,8 @@ export const ALBUMS: Album[] = [
         "alt": "A wide view of red canyon walls",
         "original": "/photos/grand-canyon-2026/15.jpg",
         "originalWidth": 4608,
-        "originalHeight": 3456
+        "originalHeight": 3456,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/16.webp",
@@ -167,7 +182,8 @@ export const ALBUMS: Album[] = [
         "alt": "Red rock formations beneath pale clouds",
         "original": "/photos/grand-canyon-2026/16.jpg",
         "originalWidth": 4608,
-        "originalHeight": 3456
+        "originalHeight": 3456,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/17.webp",
@@ -177,7 +193,8 @@ export const ALBUMS: Album[] = [
         "alt": "Desert buttes framed by branches",
         "original": "/photos/grand-canyon-2026/17.jpg",
         "originalWidth": 2535,
-        "originalHeight": 1901
+        "originalHeight": 1901,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/18.webp",
@@ -187,7 +204,8 @@ export const ALBUMS: Album[] = [
         "alt": "A sandstone formation above desert greenery",
         "original": "/photos/grand-canyon-2026/18.jpg",
         "originalWidth": 4608,
-        "originalHeight": 3456
+        "originalHeight": 3456,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/19.webp",
@@ -197,7 +215,8 @@ export const ALBUMS: Album[] = [
         "alt": "Red rocks beneath a clouded sky",
         "original": "/photos/grand-canyon-2026/19.jpg",
         "originalWidth": 4410,
-        "originalHeight": 3307
+        "originalHeight": 3307,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/20.webp",
@@ -207,7 +226,8 @@ export const ALBUMS: Album[] = [
         "alt": "Cars parked along a desert road",
         "original": "/photos/grand-canyon-2026/20.jpg",
         "originalWidth": 4608,
-        "originalHeight": 3456
+        "originalHeight": 3456,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/21.webp",
@@ -217,7 +237,8 @@ export const ALBUMS: Album[] = [
         "alt": "Cacti below red sandstone towers",
         "original": "/photos/grand-canyon-2026/21.jpg",
         "originalWidth": 4608,
-        "originalHeight": 3456
+        "originalHeight": 3456,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/22.webp",
@@ -227,7 +248,8 @@ export const ALBUMS: Album[] = [
         "alt": "Sunlight on desert rock formations",
         "original": "/photos/grand-canyon-2026/22.jpg",
         "originalWidth": 4608,
-        "originalHeight": 3456
+        "originalHeight": 3456,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/23.webp",
@@ -237,7 +259,8 @@ export const ALBUMS: Album[] = [
         "alt": "A person looking toward red rock formations",
         "original": "/photos/grand-canyon-2026/23.jpg",
         "originalWidth": 4608,
-        "originalHeight": 3456
+        "originalHeight": 3456,
+        "caption": ""
       },
       {
         "src": "/photos/grand-canyon-2026/24.webp",
@@ -247,7 +270,8 @@ export const ALBUMS: Album[] = [
         "alt": "A green valley below red cliffs",
         "original": "/photos/grand-canyon-2026/24.jpg",
         "originalWidth": 4298,
-        "originalHeight": 3223
+        "originalHeight": 3223,
+        "caption": ""
       }
     ]
   },
@@ -256,7 +280,7 @@ export const ALBUMS: Album[] = [
     "title": "Fall, 2025",
     "year": "2025",
     "note": "Golden paths, familiar places, and a change of season.",
-    "cover": 14,
+    "cover": 13,
     "photos": [
       {
         "src": "/photos/fall-2025/01.webp",
@@ -266,7 +290,8 @@ export const ALBUMS: Album[] = [
         "alt": "A lakeside bench beneath autumn trees",
         "original": "/photos/fall-2025/01.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1536
+        "originalHeight": 1536,
+        "caption": ""
       },
       {
         "src": "/photos/fall-2025/02.webp",
@@ -276,7 +301,8 @@ export const ALBUMS: Album[] = [
         "alt": "Autumn leaves against a blue sky",
         "original": "/photos/fall-2025/02.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1536
+        "originalHeight": 1536,
+        "caption": ""
       },
       {
         "src": "/photos/fall-2025/03.webp",
@@ -286,17 +312,8 @@ export const ALBUMS: Album[] = [
         "alt": "Autumn trees surrounding a lake",
         "original": "/photos/fall-2025/03.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1536
-      },
-      {
-        "src": "/photos/fall-2025/04.webp",
-        "thumb": "/photos/fall-2025/04-thumb.webp",
-        "width": 2048,
-        "height": 1536,
-        "alt": "A portrait above a lake and autumn hills",
-        "original": "/photos/fall-2025/04.jpg",
-        "originalWidth": 2048,
-        "originalHeight": 1536
+        "originalHeight": 1536,
+        "caption": ""
       },
       {
         "src": "/photos/fall-2025/05.webp",
@@ -306,7 +323,8 @@ export const ALBUMS: Album[] = [
         "alt": "A lake winding between forested hills",
         "original": "/photos/fall-2025/05.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1536
+        "originalHeight": 1536,
+        "caption": ""
       },
       {
         "src": "/photos/fall-2025/06.webp",
@@ -316,7 +334,8 @@ export const ALBUMS: Album[] = [
         "alt": "Shoes on a leaf-covered trail",
         "original": "/photos/fall-2025/06.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1536
+        "originalHeight": 1536,
+        "caption": ""
       },
       {
         "src": "/photos/fall-2025/07.webp",
@@ -326,7 +345,8 @@ export const ALBUMS: Album[] = [
         "alt": "Walkers on a golden forest path",
         "original": "/photos/fall-2025/07.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1536
+        "originalHeight": 1536,
+        "caption": ""
       },
       {
         "src": "/photos/fall-2025/08.webp",
@@ -336,7 +356,8 @@ export const ALBUMS: Album[] = [
         "alt": "People resting among golden trees",
         "original": "/photos/fall-2025/08.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1536
+        "originalHeight": 1536,
+        "caption": ""
       },
       {
         "src": "/photos/fall-2025/09.webp",
@@ -346,7 +367,8 @@ export const ALBUMS: Album[] = [
         "alt": "A train traveling through autumn woodland",
         "original": "/photos/fall-2025/09.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1536
+        "originalHeight": 1536,
+        "caption": ""
       },
       {
         "src": "/photos/fall-2025/10.webp",
@@ -356,7 +378,8 @@ export const ALBUMS: Album[] = [
         "alt": "A circular chandelier viewed from below",
         "original": "/photos/fall-2025/10.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1527
+        "originalHeight": 1527,
+        "caption": ""
       },
       {
         "src": "/photos/fall-2025/11.webp",
@@ -366,7 +389,8 @@ export const ALBUMS: Album[] = [
         "alt": "Red and orange trees on a green lawn",
         "original": "/photos/fall-2025/11.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1536
+        "originalHeight": 1536,
+        "caption": ""
       },
       {
         "src": "/photos/fall-2025/12.webp",
@@ -376,7 +400,8 @@ export const ALBUMS: Album[] = [
         "alt": "Sunlight through trees in a park",
         "original": "/photos/fall-2025/12.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1536
+        "originalHeight": 1536,
+        "caption": ""
       },
       {
         "src": "/photos/fall-2025/13.webp",
@@ -386,7 +411,8 @@ export const ALBUMS: Album[] = [
         "alt": "Autumn leaves gathered around a tree",
         "original": "/photos/fall-2025/13.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1536
+        "originalHeight": 1536,
+        "caption": ""
       },
       {
         "src": "/photos/fall-2025/14.webp",
@@ -396,7 +422,8 @@ export const ALBUMS: Album[] = [
         "alt": "A person walking through an autumn campus",
         "original": "/photos/fall-2025/14.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1536
+        "originalHeight": 1536,
+        "caption": ""
       },
       {
         "src": "/photos/fall-2025/15.webp",
@@ -406,7 +433,8 @@ export const ALBUMS: Album[] = [
         "alt": "A path framed by golden trees",
         "original": "/photos/fall-2025/15.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1536
+        "originalHeight": 1536,
+        "caption": ""
       },
       {
         "src": "/photos/fall-2025/16.webp",
@@ -416,7 +444,8 @@ export const ALBUMS: Album[] = [
         "alt": "A columned building and clock tower",
         "original": "/photos/fall-2025/16.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1536
+        "originalHeight": 1536,
+        "caption": ""
       },
       {
         "src": "/photos/fall-2025/17.webp",
@@ -426,7 +455,8 @@ export const ALBUMS: Album[] = [
         "alt": "A campus lawn and a white clock tower",
         "original": "/photos/fall-2025/17.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1516
+        "originalHeight": 1516,
+        "caption": ""
       },
       {
         "src": "/photos/fall-2025/18.webp",
@@ -436,7 +466,8 @@ export const ALBUMS: Album[] = [
         "alt": "Golden leaves framing a campus building",
         "original": "/photos/fall-2025/18.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1536
+        "originalHeight": 1536,
+        "caption": ""
       },
       {
         "src": "/photos/fall-2025/19.webp",
@@ -446,17 +477,8 @@ export const ALBUMS: Album[] = [
         "alt": "A portrait above autumn trees and buildings",
         "original": "/photos/fall-2025/19.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1536
-      },
-      {
-        "src": "/photos/fall-2025/20.webp",
-        "thumb": "/photos/fall-2025/20-thumb.webp",
-        "width": 2048,
-        "height": 1536,
-        "alt": "A portrait on a campus terrace",
-        "original": "/photos/fall-2025/20.jpg",
-        "originalWidth": 2048,
-        "originalHeight": 1536
+        "originalHeight": 1536,
+        "caption": ""
       },
       {
         "src": "/photos/fall-2025/21.webp",
@@ -466,7 +488,8 @@ export const ALBUMS: Album[] = [
         "alt": "A person walking along a golden tree-lined path",
         "original": "/photos/fall-2025/21.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1536
+        "originalHeight": 1536,
+        "caption": ""
       },
       {
         "src": "/photos/fall-2025/22.webp",
@@ -476,7 +499,8 @@ export const ALBUMS: Album[] = [
         "alt": "A canal between city buildings",
         "original": "/photos/fall-2025/22.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1536
+        "originalHeight": 1536,
+        "caption": ""
       },
       {
         "src": "/photos/fall-2025/23.webp",
@@ -486,7 +510,8 @@ export const ALBUMS: Album[] = [
         "alt": "A statue beside a red brick building",
         "original": "/photos/fall-2025/23.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1536
+        "originalHeight": 1536,
+        "caption": ""
       },
       {
         "src": "/photos/fall-2025/24.webp",
@@ -496,27 +521,8 @@ export const ALBUMS: Album[] = [
         "alt": "A glowing circular chandelier",
         "original": "/photos/fall-2025/24.jpg",
         "originalWidth": 2048,
-        "originalHeight": 1536
-      },
-      {
-        "src": "/photos/fall-2025/25.webp",
-        "thumb": "/photos/fall-2025/25-thumb.webp",
-        "width": 2048,
-        "height": 1536,
-        "alt": "A city skyline at sunset across the water",
-        "original": "/photos/fall-2025/25.jpg",
-        "originalWidth": 2048,
-        "originalHeight": 1536
-      },
-      {
-        "src": "/photos/fall-2025/26.webp",
-        "thumb": "/photos/fall-2025/26-thumb.webp",
-        "width": 2048,
-        "height": 1536,
-        "alt": "City buildings and a bridge at dusk",
-        "original": "/photos/fall-2025/26.jpg",
-        "originalWidth": 2048,
-        "originalHeight": 1536
+        "originalHeight": 1536,
+        "caption": ""
       }
     ]
   }

@@ -10,6 +10,7 @@ export const ROLES: Role[] = [
       "Architected and deployed a GCP Cloud Run orchestrator-worker pipeline processing 25K events/250 GB daily in 30 min with sharding, parallelization, concurrency, idempotent BigQuery merges and Docker/Cloud Build.",
       "Migrated 3 production pipelines from AWS S3 to internal APIs (12K logs/120 GB daily), cutting runtime 86% (22h to 3h) with 3-tier failover, circuit breakers, retries and connection pooling; eliminated manual recovery.",
     ],
+    skills: ["Python", "Google ADK", "GCP", "BigQuery", "Docker", "LLM Evaluation"],
   },
   {
     company: "Ford Motor Company",

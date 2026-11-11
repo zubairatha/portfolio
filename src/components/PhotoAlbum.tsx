@@ -46,7 +46,7 @@ export default function PhotoAlbum({ album }: { album: Album }) {
         <div className="photo-viewer-top"><span id="photo-dialog-title">{album.title}</span><button autoFocus onClick={() => dialog.current?.close()} aria-label="Close photo viewer">Close ✕</button></div>
         <div className="photo-viewer-image">{index !== null && <Image key={photo.src} src={assetPath(photo.original)} alt={photo.alt} width={photo.originalWidth} height={photo.originalHeight} loading="eager" sizes="95vw" />}</div>
         <div className="photo-viewer-bottom">
-          <p aria-live="polite">{String((index ?? 0) + 1).padStart(2, "0")} / {album.photos.length}<span>{photo.alt}</span></p>
+          <p aria-live="polite">{String((index ?? 0) + 1).padStart(2, "0")} / {album.photos.length}{photo.caption && <span>{photo.caption}</span>}</p>
           <div className="photo-controls"><button onClick={() => move(-1)} aria-label="Previous photograph">←</button><button onClick={() => move(1)} aria-label="Next photograph">→</button></div>
         </div>
       </dialog>

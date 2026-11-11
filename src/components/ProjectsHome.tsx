@@ -23,7 +23,6 @@ export default function ProjectsHome() {
               <span className="project-tile-top"><span className="eyebrow">{String(project.id + 1).padStart(2, "0")} / PROJECT</span><span aria-hidden="true">↗</span></span>
               <h3>{project.name}</h3>
               <p>{card.summary}</p>
-              <span className="project-highlight">{card.highlight}</span>
               <span className="project-tags">{card.tags.map(tag => <span key={tag}>{tag}</span>)}</span>
             </button>
           );

@@ -124,7 +124,7 @@ selected technologies; complete original details remain available in dialogs.
 The E-Commerce project is no longer displayed, as requested; its source record
 is retained for archival content verification.
 
-Frames contains Grand Canyon (24 photos) and Fall, 2025 (26 photos). Responsive WebP display images, thumbnails, and full-resolution JPG copies
+Frames contains Grand Canyon (24 photos) and Fall, 2025 (22 photos). Responsive WebP display images, thumbnails, and full-resolution JPG copies
 live in `public/photos/`; original photo folders are unchanged. Wide contact
 sheet images use the larger responsive sources. Opening a photograph loads
 the original JPG on demand. Albums are statically generated under `/frames/[album]`.
@@ -147,3 +147,7 @@ The pond supports pause, keyboard interaction, a static reduced-motion view,
 and pauses when offscreen or when the browser tab is hidden. The unused
 `PaperRiver` implementation and scene factory remain in `src/lib/livingScenes.ts`
 for future use. No dependencies were added.
+
+Project cards use the same outlined tags as experience and omit metric callouts.
+Grand Canyon uses photo 21 as its cover; Fall, 2025 omits photos 4, 20, 25, and 26.
+Photo captions are empty, while descriptive image alt text is retained.
