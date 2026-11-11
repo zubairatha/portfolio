@@ -3,11 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import { createLivingScene, type LivingScene, type SceneKind, type ScenePointer } from "@/lib/livingScenes";
 
-const STUDIES: { kind: SceneKind; title: string; description: string; action: string }[] = [
-  { kind: "pond", title: "The koi pond", description: "Move slowly to draw them closer. Click or tap to feed.", action: "feed the fish" },
-  { kind: "boats", title: "The paper river", description: "Guide the current. Click or tap to send a ripple through it.", action: "make a ripple" },
-];
-
 function LivingCanvas({ kind, title, action, paused }: { kind: SceneKind; title: string; action: string; paused: boolean }) {
   const surfaceRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -142,24 +137,31 @@ function LivingCanvas({ kind, title, action, paused }: { kind: SceneKind; title:
   );
 }
 
-function Study({ kind, title, description, action, index }: typeof STUDIES[number] & { index: number }) {
-  const [paused, setPaused] = useState(false);
+function InspirationNote() {
+  const [open, setOpen] = useState(false);
   return (
-    <figure className="interaction-study">
-      <figcaption>
-        <div><span className="study-number">0{index + 1}</span><h3>{title}</h3></div>
-        <div className="study-caption-actions"><p>{description}</p><button className="study-pause" type="button" aria-pressed={paused} aria-label={`${paused ? "Resume" : "Pause"} ${title.toLowerCase()}`} onClick={() => setPaused(value => !value)}>{paused ? "Play ▷" : "Pause Ⅱ"}</button></div>
-      </figcaption>
-      <LivingCanvas kind={kind} title={title} action={action} paused={paused} />
-    </figure>
+    <div className="pond-credit" onMouseEnter={() => setOpen(true)} onMouseLeave={() => setOpen(false)}
+      onFocus={() => setOpen(true)} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false); }}
+      onKeyDown={event => { if (event.key === "Escape") { setOpen(false); event.stopPropagation(); } }}>
+      <button type="button" className="pond-info" aria-label="Pond inspiration" aria-expanded={open} aria-controls="pond-inspiration"
+        onClick={() => setOpen(true)}>i</button>
+      <div id="pond-inspiration" className="pond-credit-note" hidden={!open}>
+        Inspiration from: <a href="https://www.daoho.dev/" target="_blank" rel="noopener noreferrer">daoho.dev ↗</a>
+      </div>
+    </div>
   );
 }
 
 export default function InteractionStudies() {
+  const [paused, setPaused] = useState(false);
   return (
-    <section className="interaction-studies" aria-labelledby="studies-title">
-      <div className="studies-heading"><span className="eyebrow">TWO LITTLE WORLDS</span><h2 id="studies-title">A moment by the water.</h2><p>Move gently. Make a ripple. See what follows.</p></div>
-      {STUDIES.map((study, index) => <Study key={study.kind} {...study} index={index} />)}
+    <section className="interaction-studies" aria-label="Interactive koi pond">
+      <div className="pond-frame">
+        <LivingCanvas kind="pond" title="The koi pond. Move slowly to draw fish closer. Click or tap to feed" action="feed the fish" paused={paused} />
+        <InspirationNote />
+        <button className="study-pause" type="button" aria-pressed={paused} aria-label={`${paused ? "Resume" : "Pause"} the koi pond`}
+          onClick={() => setPaused(value => !value)}>{paused ? "Play ▷" : "Pause Ⅱ"}</button>
+      </div>
     </section>
   );
 }

@@ -127,11 +127,14 @@ export class KoiPond extends WaterScene {
   private seed() {
     const length = clamp(Math.min(this.width * .18, this.height * .48), 74, 150);
     this.fish = [
-      { x: .27, y: .36, heading: -.18 },
-      { x: .74, y: .7, heading: Math.PI + .12 },
-      { x: .57, y: .32, heading: 1.2 },
+      { x: .23, y: .3, heading: -.18 },
+      { x: .5, y: .3, heading: Math.PI + .12 },
+      { x: .78, y: .3, heading: .45 },
+      { x: .23, y: .73, heading: Math.PI - .2 },
+      { x: .5, y: .73, heading: .12 },
+      { x: .78, y: .73, heading: Math.PI + .3 },
     ].map((start, id) => {
-      const size = length * (1 - id * .12);
+      const size = length * (1 - (id % 3) * .12);
       const head = { x: start.x * this.width, y: start.y * this.height };
       return { id, length: size, heading: start.heading, speed: 22, phase: id * 2.1, fright: 0, wake: 0, nextGoal: 0, goal: { ...head },
         nodes: Array.from({ length: 20 }, (_, i) => ({ x: head.x - Math.cos(start.heading) * i * size * .82 / 19, y: head.y - Math.sin(start.heading) * i * size * .82 / 19 })) };
@@ -144,7 +147,7 @@ export class KoiPond extends WaterScene {
     for (const fish of this.fish) {
       fish.nodes.forEach(node => { node.x *= sx; node.y *= sy; });
       fish.goal.x *= sx; fish.goal.y *= sy;
-      fish.length = length * (1 - fish.id * .12);
+      fish.length = length * (1 - (fish.id % 3) * .12);
     }
     this.food.forEach(p => { p.x *= sx; p.y *= sy; });
     this.ripples = []; this.wakes = [];
@@ -251,7 +254,7 @@ export class KoiPond extends WaterScene {
     for (const sign of [-1, 1]) {
       paint.polygon([local(5, 0, sign * L * .08), local(5, -L * .19, sign * L * (.22 + .02 * Math.sin(fish.phase))), local(5, -L * .13, sign * L * .06)], "#adb5a0", .48, sign > 0 ? "/" : "\\");
     }
-    paint.polygon([local(19, 0, 0), local(19, -L * .2, L * .14), local(19, -L * .13, 0), local(19, -L * .2, -L * .14)], fish.id === 1 ? "#c28a65" : "#b7bba9", .68, "/");
+    paint.polygon([local(19, 0, 0), local(19, -L * .2, L * .14), local(19, -L * .13, 0), local(19, -L * .2, -L * .14)], fish.id % 3 === 1 ? "#c28a65" : "#b7bba9", .68, "/");
     const pad = L * .15;
     const minX = Math.floor((Math.min(...spine.map(p => p.x)) - pad) / paint.cell) * paint.cell;
     const maxX = Math.max(...spine.map(p => p.x)) + pad;
@@ -274,8 +277,8 @@ export class KoiPond extends WaterScene {
         const grain = hash(Math.floor(progress * 35) * 31 + Math.floor(side / 4) + fish.id * 71);
         const patch = Math.sin(progress * 17 + fish.id * 2 + side / L * 5) + grain * .4;
         let color = "#d1cebc";
-        if (fish.id === 1 ? patch > -.25 : patch > .67) color = grain > .5 ? "#bd5937" : "#d77e48";
-        if (fish.id === 2 && patch < -.72) color = "#6a7665";
+        if (fish.id % 3 === 1 ? patch > -.25 : patch > .67) color = grain > .5 ? "#bd5937" : "#d77e48";
+        if (fish.id % 3 === 2 && patch < -.72) color = "#6a7665";
         const glyph = [":", "%", "s", "#", "."][Math.floor(grain * 5)];
         body.push({ x, y, color, glyph, alpha: opacity * (nearest / radius > .85 ? .6 : 1) });
       }

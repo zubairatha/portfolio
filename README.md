@@ -140,9 +140,10 @@ and pointer/reduced-motion behavior still need browser verification.
 To preview the production export: `npm run build`, then
 `python3 -m http.server 8080 --directory out` and open http://localhost:8080.
 
-The homepage presents two living ASCII scenes for comparison: a koi pond and a
-paper-boat river. Fish wander, approach slow pointers, scatter from sudden
-movement, and eat food dropped by clicking or tapping. Paper boats drift in
-currents and react to pointer movement and pebble ripples. Each scene has a
-pause control, keyboard interaction, a static reduced-motion view, and pauses
-when offscreen or when the browser tab is hidden. No dependencies were added.
+The homepage displays a single ASCII koi pond with six fish beneath the introduction.
+Fish wander, approach slow pointers, scatter from sudden movement, and eat food
+on click or tap. A small information control links to daoho.dev for inspiration.
+The pond supports pause, keyboard interaction, a static reduced-motion view,
+and pauses when offscreen or when the browser tab is hidden. The unused
+`PaperRiver` implementation and scene factory remain in `src/lib/livingScenes.ts`
+for future use. No dependencies were added.
