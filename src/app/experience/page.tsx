@@ -1,4 +1,2 @@
-import ExperienceTimeline from "@/components/ExperienceTimeline";
-export default function ExperiencePage(){ return <ExperienceTimeline/>; }
-
-
+import Work from "../work/page";
+export default Work;

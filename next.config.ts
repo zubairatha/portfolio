@@ -7,11 +7,13 @@ const basePath = isCI && !isVercel ? `/${repo}` : "";
 
 const nextConfig: NextConfig = {
   output: "export",
+  env: { NEXT_PUBLIC_BASE_PATH: basePath },
   trailingSlash: true,
   images: { unoptimized: true },
   basePath,
   assetPrefix: basePath ? `${basePath}/` : undefined,
-  distDir: "out",
+  // Keep Next.js build files separate from the static export in out/.
+  distDir: ".next",
 };
 
 export default nextConfig;

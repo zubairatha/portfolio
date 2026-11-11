@@ -8,7 +8,7 @@ Minimal, content-first portfolio showcasing projects, experience, and writing. B
 # From repo root
 npm install
 npm run dev
-# open http://localhost:3000/about
+# open http://localhost:3000
 ```
 
 If `npm` is not found, ensure Volta is on PATH:
@@ -53,28 +53,30 @@ This is a **test** post.
 
 ### Projects Page
 - Interactive project cards with hover effects
-- Glass morphism modal popups with detailed project information
-- Color-coded technology tags
+- Equal-sized project cards with concise highlights and complete details in a dialog
+- Restrained technology labels
 - Direct GitHub repository links
 - Responsive grid layout
 
 ### Blog Features
 - Search box filters by title/excerpt
-- Clickable category pills on cards (filters list)
-- Sticky Topics sidebar with counts
+- Minimal article list; category metadata preserved without filter controls
 - MDX support for rich content
 
 ### Design
 - Minimal, clean aesthetic
-- Glass morphism effects
+- Warm paper palette and editorial typography
 - Responsive design across all devices
 - Smooth animations and transitions
 
 ## Pages
-- `/about` – About page with glass morphism resume button
-- `/experience` – Timeline of work experience and education
-- `/projects` – Interactive project showcase with modal details
-- `/blog` – Blog index with search and category filtering
+- `/` – Centered introduction with an animated role title
+- `/work` – Independently collapsible Experience, Projects, and Education
+- `/frames` – Two photographic albums with responsive contact sheets and a keyboard-accessible photo viewer
+- `/about` – Preserved About page, outside main navigation
+- `/experience` – Legacy route displaying the Work page
+- `/projects` – Preserved project showcase route with project detail dialogs
+- `/blog` – Writing index with title/excerpt/category search
 - `/blog/[slug]` – MDX post renderer
 
 ## Static export
@@ -88,15 +90,15 @@ npm run build
 
 ## Project Data
 - Experience data: `src/data/experience.ts`
-- Projects data: `src/components/ProjectsHome.tsx` (parsed from `projects.txt`)
+- Projects data: `src/data/projects.ts`
 - Blog posts: `content/posts/*.mdx`
 
 ## Customize
 - Header title/tagline in `src/components/SiteHeader.tsx`
-- Social links and resume link in `src/components/SiteHeader.tsx`
+- Social links in `src/components/SiteFooter.tsx`; résumé interface in `src/components/ResumePreview.tsx`
 - Navigation menu in `src/components/SiteHeader.tsx`
 - Experience data in `src/data/experience.ts`
-- Project information in `src/components/ProjectsHome.tsx`
+- Project information in `src/data/projects.ts`
 
 ## Technologies Used
 - **Next.js 15** with App Router
@@ -104,4 +106,48 @@ npm run build
 - **TailwindCSS v4** for styling
 - **MDX** for blog content
 - **Lucide React** for icons
-- **Glass morphism** design patterns
+- **Field Notes** editorial design
+
+## Redesign validation
+
+Run `npm run lint`, `npm run build`, and `node scripts/verify-content.mjs`.
+The content check compares original experience, education, projects, MDX files,
+and About content with `origin/main`. The Ford full-time role is the only added
+experience entry. Build files use `.next/`; exported files remain in `out/`.
+
+No dependencies were added. A single résumé link opens the supplied October
+2026 PDF in a viewer with download controls. The document is served as
+`public/documents/zubair-atha-resume.pdf`.
+
+Work sections start collapsed. Project cards display shortened summaries and
+selected technologies; complete original details remain available in dialogs.
+The E-Commerce project is no longer displayed, as requested; its source record
+is retained for archival content verification.
+
+Frames contains Grand Canyon (24 photos) and Fall, 2025 (22 photos). Responsive WebP display images, thumbnails, and full-resolution JPG copies
+live in `public/photos/`; original photo folders are unchanged. Wide contact
+sheet images use the larger responsive sources. Opening a photograph loads
+the original JPG on demand. Albums are statically generated under `/frames/[album]`.
+The photo viewer supports previous/next controls, arrow keys, and Escape.
+Résumé and project dialogs are centered explicitly to account for Tailwind
+Preflight. The homepage types and deletes role titles on a dedicated line, with a pause
+between titles. Reduced motion keeps the Data Scientist title static.
+
+Browser automation was unavailable during implementation. Desktop/mobile visual
+QA and live checks of accordions, project cards, search, dialog focus/Escape,
+and pointer/reduced-motion behavior still need browser verification.
+
+To preview the production export: `npm run build`, then
+`python3 -m http.server 8080 --directory out` and open http://localhost:8080.
+
+The homepage displays a single ASCII koi pond with six fish beneath the introduction.
+Fish wander, approach slow pointers, scatter from sudden movement, and eat food
+on click or tap. A small information control links to daoho.dev for inspiration.
+The pond supports pause, keyboard interaction, a static reduced-motion view,
+and pauses when offscreen or when the browser tab is hidden. The unused
+`PaperRiver` implementation and scene factory remain in `src/lib/livingScenes.ts`
+for future use. No dependencies were added.
+
+Project cards use the same outlined tags as experience and omit metric callouts.
+Grand Canyon uses photo 21 as its cover; Fall, 2025 omits photos 4, 20, 25, and 26.
+Photo captions are empty, while descriptive image alt text is retained.

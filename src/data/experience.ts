@@ -2,6 +2,18 @@ export type Role = { company:string; title:string; start:string; end?:string; bu
 export const ROLES: Role[] = [
   {
     company: "Ford Motor Company",
+    title: "Data Scientist",
+    start: "January 2026",
+    end: "Present",
+    bullets: [
+      "Co-leading agentic AI system design and development for a 0-to-1 vehicle budget planning product under a $50M+ AI initiative; driving research in Google ADK harnesses, search, prompt optimization (GEPA), and LLM evaluation.",
+      "Architected and deployed a GCP Cloud Run orchestrator-worker pipeline processing 25K events/250 GB daily in 30 min with sharding, parallelization, concurrency, idempotent BigQuery merges and Docker/Cloud Build.",
+      "Migrated 3 production pipelines from AWS S3 to internal APIs (12K logs/120 GB daily), cutting runtime 86% (22h to 3h) with 3-tier failover, circuit breakers, retries and connection pooling; eliminated manual recovery.",
+    ],
+    skills: ["Python", "Google ADK", "GCP", "BigQuery", "Docker", "LLM Evaluation"],
+  },
+  {
+    company: "Ford Motor Company",
     title: "Data Science Intern",
     start: "May 2025",
     end: "Aug 2025",
