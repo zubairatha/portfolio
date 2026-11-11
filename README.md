@@ -79,14 +79,38 @@ This is a **test** post.
 - `/blog` – Writing index with title/excerpt/category search
 - `/blog/[slug]` – MDX post renderer
 
-## Static export
-`next.config.ts` uses `output: "export"` and sets `basePath` automatically on GitHub Actions to support GitHub Pages.
+## Cloudflare deployment
+
+The live site is [zubairatha.com](https://zubairatha.com/), served through Cloudflare.
+`next.config.ts` uses `output: "export"`
+and serves routes and assets from the domain root, without a repository prefix.
+
+Configure the Cloudflare project with:
+
+- Build command: `npm run build`
+- Build output directory: `out`
+- Root directory: the repository root
+
+Keep the existing Cloudflare Git integration, production branch, and custom
+domain configuration. No Worker or server runtime is required for this static
+export.
 
 Build locally:
 ```bash
 npm run build
 # static site emitted to ./out
 ```
+
+After deployment, verify `/`, `/work/`, `/blog/`, and an album under `/frames/`,
+including navigation, photo assets, and `/documents/zubair-atha-resume.pdf`, on
+the existing custom domain. Cloudflare project and domain settings are managed
+in the Cloudflare dashboard.
+
+The legacy GitHub Pages workflow and Jekyll marker files have been removed.
+To finish retiring the old host, open the repository's
+[Pages settings](https://github.com/zubairatha/portfolio/settings/pages) and
+unpublish the GitHub Pages site if it is still enabled. This repository setting
+is separate from the source cleanup and does not change Cloudflare hosting.
 
 ## Project Data
 - Experience data: `src/data/experience.ts`
