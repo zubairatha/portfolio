@@ -1,2 +1,18 @@
 import LightField from "@/components/LightField";
-export default function Home() { return <div className="container home-wrap"><div className="home-text"><div className="eyebrow">A LITTLE INTRODUCTION</div><h1 className="home-title">Hey, I&apos;m<br />Zubair<span className="period">.</span></h1><div className="home-intro"><p>I&apos;m a data scientist at <strong>Ford</strong>, working on AI and machine learning systems.</p><p>I like understanding how things work, building things of my own, and taking photographs along the way.</p></div></div><LightField /></div>; }
+import RotatingRole from "@/components/RotatingRole";
+
+export default function Home() {
+  return (
+    <div className="container home-wrap">
+      <div className="home-text">
+        <div className="eyebrow">A LITTLE INTRODUCTION</div>
+        <h1 className="home-title">Hey, I&apos;m<br />Zubair<span className="period">.</span></h1>
+        <div className="home-intro">
+          <p>I&apos;m <RotatingRole /> building AI/ML systems at <strong>Ford</strong>. I hold a master&apos;s degree in Data Science from <strong>Columbia University</strong>.</p>
+          <p>Outside work, I build personal projects, write about AI and search, and photograph the places I visit.</p>
+        </div>
+      </div>
+      <LightField />
+    </div>
+  );
+}

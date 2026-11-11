@@ -124,10 +124,13 @@ selected technologies; complete original details remain available in dialogs.
 The E-Commerce project is no longer displayed, as requested; its source record
 is retained for archival content verification.
 
-Frames contains Grand Canyon (24 photos) and Fall, 2025 (26 photos). Optimized
-WebP display images and thumbnails live in `public/photos/`; original photo
-folders are unchanged. Albums are statically generated under `/frames/[album]`.
+Frames contains Grand Canyon (24 photos) and Fall, 2025 (26 photos). Responsive WebP display images, thumbnails, and full-resolution JPG copies
+live in `public/photos/`; original photo folders are unchanged. Wide contact
+sheet images use the larger responsive sources. Opening a photograph loads
+the original JPG on demand. Albums are statically generated under `/frames/[album]`.
 The photo viewer supports previous/next controls, arrow keys, and Escape.
+Résumé and project dialogs are centered explicitly to account for Tailwind
+Preflight. The homepage role rotation uses CSS and stops with reduced motion.
 
 Browser automation was unavailable during implementation. Desktop/mobile visual
 QA and live checks of accordions, project cards, search, dialog focus/Escape,

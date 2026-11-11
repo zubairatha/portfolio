@@ -285,3 +285,19 @@ html:has(dialog[open]){overflow:hidden}
 .photo-controls button:hover{border-color:var(--accent)}
 @media(max-width:800px){.album-shelf{gap:35px}.project-tile{padding:22px}.project-tile h3{font-size:25px}}
 @media(max-width:590px){.project-grid{grid-template-columns:1fr}.project-tile{padding:23px}.project-tile h3{font-size:26px}.resume-dialog{width:calc(100% - 16px);height:92dvh}.resume-modal-head{padding:12px}.viewer-actions{gap:12px}.viewer-download{font-size:11px}.album-shelf{grid-template-columns:1fr;gap:48px;padding-top:0}.album-cover-heading h2{font-size:32px}.album-page-heading{display:block}.album-page-heading>.album-count{display:block;margin-top:18px}.photo-grid{gap:18px 12px}.photo-frame:nth-child(7n+1) .photo-thumbnail{aspect-ratio:4/3}.photo-caption{padding:9px 0}.photo-viewer-top{padding:0 15px;height:64px}.photo-viewer-image{padding:0 12px;height:calc(100dvh - 164px)}.photo-viewer-bottom{padding:0 18px;height:100px;gap:12px}.photo-viewer-bottom p span{font-size:11px;max-width:220px}.photo-controls{gap:6px}.photo-controls button{width:36px}.project-dialog-body{padding:22px}.project-dialog-body h2{font-size:30px}.album-end{align-items:flex-start}}
+
+
+/* Tailwind resets the native dialog margin; restore centering in the top layer. */
+dialog{position:fixed;inset:0;margin:auto;height:fit-content}
+.photo-thumbnail picture{display:block;width:100%;height:100%}
+.rotating-role{display:inline-grid;vertical-align:bottom;white-space:nowrap}
+.rotating-role-title{grid-area:1/1;opacity:0;animation:rotate-role 12s ease-in-out infinite}
+@keyframes rotate-role{
+  0%,25%{opacity:1;transform:translateY(0)}
+  30%,95%{opacity:0;transform:translateY(-.4em)}
+  96%,100%{opacity:0;transform:translateY(.4em)}
+}
+@media(prefers-reduced-motion:reduce){
+  .rotating-role-title{animation:none;display:none}
+  .rotating-role-title:first-of-type{display:inline;opacity:1;transform:none}
+}
