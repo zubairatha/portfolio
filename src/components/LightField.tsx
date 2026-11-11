@@ -99,5 +99,5 @@ export default function LightField() {
         media.addEventListener('change', motionChange);
         return () => { controller.abort(); cancelAnimationFrame(frame); observe.disconnect(); resizeObserver.disconnect(); media.removeEventListener('change', motionChange); };
     }, []);
-    return <div ref={fieldRef} role="img" aria-label="An interactive field of light-sensitive dots that react to your pointer" className="light-field"><canvas ref={canvasRef} aria-hidden="true"/><span className="light-note">MOVE YOUR CURSOR THROUGH THE FIELD ↗</span></div>;
+    return <div ref={fieldRef} role="img" aria-label="An interactive field of light-sensitive dots that react to your pointer" className="light-field"><canvas ref={canvasRef} aria-hidden="true"/></div>;
 }

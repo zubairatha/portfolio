@@ -53,7 +53,7 @@ This is a **test** post.
 
 ### Projects Page
 - Interactive project cards with hover effects
-- Keyboard-accessible expandable cards with complete project details
+- Equal-sized project cards with concise highlights and complete details in a dialog
 - Restrained technology labels
 - Direct GitHub repository links
 - Responsive grid layout
@@ -72,10 +72,10 @@ This is a **test** post.
 ## Pages
 - `/` – Minimal introduction and cursor-reactive particle field
 - `/work` – Independently collapsible Experience, Projects, and Education
-- `/frames` – Intentionally empty photography placeholder
+- `/frames` – Two photographic albums with responsive contact sheets and a keyboard-accessible photo viewer
 - `/about` – Preserved About page, outside main navigation
 - `/experience` – Legacy route displaying the Work page
-- `/projects` – Preserved project showcase route with expandable details
+- `/projects` – Preserved project showcase route with project detail dialogs
 - `/blog` – Writing index with title/excerpt/category search
 - `/blog/[slug]` – MDX post renderer
 
@@ -115,9 +115,19 @@ The content check compares original experience, education, projects, MDX files,
 and About content with `origin/main`. The Ford full-time role is the only added
 experience entry. Build files use `.next/`; exported files remain in `out/`.
 
-No dependencies were added. Résumé preview is explicitly a placeholder because
-no PDF exists in the repository; download is disabled. The previous external
-résumé link remains available in the dialog. Frames is intentionally empty.
+No dependencies were added. A single résumé link opens the supplied October
+2026 PDF in a viewer with download controls. The document is served as
+`public/documents/zubair-atha-resume.pdf`.
+
+Work sections start collapsed. Project cards display shortened summaries and
+selected technologies; complete original details remain available in dialogs.
+The E-Commerce project is no longer displayed, as requested; its source record
+is retained for archival content verification.
+
+Frames contains Grand Canyon (24 photos) and Fall, 2025 (26 photos). Optimized
+WebP display images and thumbnails live in `public/photos/`; original photo
+folders are unchanged. Albums are statically generated under `/frames/[album]`.
+The photo viewer supports previous/next controls, arrow keys, and Escape.
 
 Browser automation was unavailable during implementation. Desktop/mobile visual
 QA and live checks of accordions, project cards, search, dialog focus/Escape,
