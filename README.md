@@ -130,7 +130,8 @@ sheet images use the larger responsive sources. Opening a photograph loads
 the original JPG on demand. Albums are statically generated under `/frames/[album]`.
 The photo viewer supports previous/next controls, arrow keys, and Escape.
 Résumé and project dialogs are centered explicitly to account for Tailwind
-Preflight. The homepage role rotation uses CSS and stops with reduced motion.
+Preflight. The homepage types and deletes role titles on a dedicated line, with a pause
+between titles. Reduced motion keeps the Data Scientist title static.
 
 Browser automation was unavailable during implementation. Desktop/mobile visual
 QA and live checks of accordions, project cards, search, dialog focus/Escape,

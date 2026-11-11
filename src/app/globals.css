@@ -290,14 +290,7 @@ html:has(dialog[open]){overflow:hidden}
 /* Tailwind resets the native dialog margin; restore centering in the top layer. */
 dialog{position:fixed;inset:0;margin:auto;height:fit-content}
 .photo-thumbnail picture{display:block;width:100%;height:100%}
-.rotating-role{display:inline-grid;vertical-align:bottom;white-space:nowrap}
-.rotating-role-title{grid-area:1/1;opacity:0;animation:rotate-role 12s ease-in-out infinite}
-@keyframes rotate-role{
-  0%,25%{opacity:1;transform:translateY(0)}
-  30%,95%{opacity:0;transform:translateY(-.4em)}
-  96%,100%{opacity:0;transform:translateY(.4em)}
-}
-@media(prefers-reduced-motion:reduce){
-  .rotating-role-title{animation:none;display:none}
-  .rotating-role-title:first-of-type{display:inline;opacity:1;transform:none}
-}
+.intro-role-line{display:block;min-height:1.85em;margin-bottom:6px}
+.rotating-role{white-space:nowrap}
+.role-caret{display:inline-block;width:1px;height:.95em;margin-left:3px;vertical-align:-.05em;background:var(--accent);opacity:.65}
+@media(prefers-reduced-motion:reduce){.role-caret{display:none}}
