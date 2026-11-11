@@ -1,10 +1,10 @@
 import Link from "next/link";
-import LightField from "@/components/LightField";
+import PixelLandscape from "@/components/PixelLandscape";
 import RotatingRole from "@/components/RotatingRole";
 
 export default function Home() {
   return (
-    <div className="container home-wrap">
+    <div className="home-page"><div className="container home-wrap">
       <div className="home-text">
         <div className="eyebrow">A LITTLE INTRODUCTION</div>
         <h1 className="home-title">Hey, I&apos;m<br />Zubair<span className="period">.</span></h1>
@@ -13,7 +13,6 @@ export default function Home() {
           <p>Outside work, I write about computer science, life, and travel, and <Link href="/frames" className="intro-photo-link">photograph</Link> the places I visit.</p>
         </div>
       </div>
-      <LightField />
-    </div>
+    </div><PixelLandscape /></div>
   );
 }

@@ -44,9 +44,6 @@
   .home-intro strong{font-weight:550;color:#354a3d}
   .home-meta{margin-top:38px;display:flex;align-items:center;gap:11px;color:#839086;font:11px var(--mono)}
   .live-dot{width:6px;height:6px;border-radius:50%;background:#789d81;box-shadow:0 0 0 4px rgba(120,157,129,.11)}
-  .light-field{width:100%;height:360px;position:relative;cursor:crosshair;touch-action:pan-y;overflow:hidden;isolation:isolate}
-  .light-field canvas{display:block;width:100%;height:100%;opacity:.98}
-  .light-note{position:absolute;bottom:12px;right:18px;font:9px var(--mono);letter-spacing:.09em;color:#a7b0a4;pointer-events:none}
   /* SHARED PAGE LAYOUT */
   .inner-page{padding:64px 0 104px;min-height:calc(100svh - 163px)}
   .page-heading{margin-bottom:54px}
@@ -125,7 +122,6 @@
     .primary-nav{gap:18px}.nav-link{font-size:12px}
     .home-wrap{min-height:calc(100svh - 77px - 71px);grid-template-columns:1fr 250px;gap:0;padding-bottom:35px}
     .home-title{font-size:clamp(51px,8vw,75px)}
-    .light-field{height:250px}
     .work-item,.degree,.section-heading{grid-template-columns:145px minmax(0,1fr)}
     .project-entry{grid-template-columns:145px 1fr 17px}.project-detail{margin-left:173px}
     .post{grid-template-columns:105px 1fr 20px;gap:18px}
@@ -141,8 +137,6 @@
     .home-title{font-size:58px;margin:21px 0 19px}
     .home-intro{font-size:14px;line-height:1.85}
     .home-meta{margin-top:24px}
-    .light-field{height:168px;width:100%;margin-top:20px;align-self:center;max-width:390px}
-    .light-note{right:8px;bottom:5px}
     .inner-page{padding:45px 0 64px}
     .page-heading{margin-bottom:32px}
     .page-title{font-size:53px}
@@ -297,3 +291,14 @@ dialog{position:fixed;inset:0;margin:auto;height:fit-content}
 
 .intro-photo-link{color:var(--accent-dark);text-decoration:underline;text-decoration-color:#cdb7a7;text-underline-offset:4px;transition:text-decoration-color .2s}
 .intro-photo-link:hover{text-decoration-color:var(--accent-dark)}
+
+
+/* A shallow interactive horizon anchors the homepage above the footer. */
+.home-page{min-height:calc(100svh - 163px);display:flex;flex-direction:column}
+.home-page .home-wrap{flex:1;min-height:0;display:flex;align-items:center;padding:38px 0 44px}
+.home-page .home-text{max-width:615px;padding-top:0}
+.pixel-landscape{height:104px;flex:none;width:100%;overflow:hidden;touch-action:pan-y;outline-offset:-5px}
+.pixel-landscape canvas{display:block;width:100%;height:100%}
+.pixel-landscape:focus-visible{outline:1px solid var(--line-strong)}
+@media(max-width:800px){.home-page{min-height:calc(100svh - 148px)}.home-page .home-wrap{padding:35px 0 40px}}
+@media(max-width:590px){.home-page{min-height:calc(100svh - 205px)}.home-page .home-wrap{padding:28px 0 30px;justify-content:center}.pixel-landscape{height:94px}}
