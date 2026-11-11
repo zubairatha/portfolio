@@ -70,7 +70,7 @@ This is a **test** post.
 - Smooth animations and transitions
 
 ## Pages
-- `/` – Minimal introduction and a pointer-reactive pixel landscape along the bottom
+- `/` – Centered introduction with an animated role title
 - `/work` – Independently collapsible Experience, Projects, and Education
 - `/frames` – Two photographic albums with responsive contact sheets and a keyboard-accessible photo viewer
 - `/about` – Preserved About page, outside main navigation
@@ -139,8 +139,3 @@ and pointer/reduced-motion behavior still need browser verification.
 
 To preview the production export: `npm run build`, then
 `python3 -m http.server 8080 --directory out` and open http://localhost:8080.
-
-The homepage pixel landscape is drawn locally without assets or dependencies.
-It reveals canyon, woodland, and skyline details near the pointer, supports
-keyboard arrow navigation, stays static with reduced motion, and stops
-requesting animation frames when settled or offscreen.
