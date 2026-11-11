@@ -139,3 +139,9 @@ and pointer/reduced-motion behavior still need browser verification.
 
 To preview the production export: `npm run build`, then
 `python3 -m http.server 8080 --directory out` and open http://localhost:8080.
+
+The homepage currently presents three labeled interaction studies for comparison:
+Pixel Lens (Grand Canyon 21 JPG), Magnetic Tiles, and Pixel Interference. Each
+canvas supports pointer, touch, and arrow keys, honors reduced motion, and
+stops animation when settled or offscreen. This comparison is temporary until
+one direction is selected.
