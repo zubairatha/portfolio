@@ -294,3 +294,6 @@ dialog{position:fixed;inset:0;margin:auto;height:fit-content}
 .rotating-role{white-space:nowrap}
 .role-caret{display:inline-block;width:1px;height:.95em;margin-left:3px;vertical-align:-.05em;background:var(--accent);opacity:.65}
 @media(prefers-reduced-motion:reduce){.role-caret{display:none}}
+
+.intro-photo-link{color:var(--accent-dark);text-decoration:underline;text-decoration-color:#cdb7a7;text-underline-offset:4px;transition:text-decoration-color .2s}
+.intro-photo-link:hover{text-decoration-color:var(--accent-dark)}
