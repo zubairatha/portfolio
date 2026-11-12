@@ -2,6 +2,7 @@
 import LinkArrow from "@/components/LinkArrow";
 
 import { useRef } from "react";
+import { Download, X } from "lucide-react";
 import { assetPath } from "@/lib/assets";
 
 export default function ResumePreview() {
@@ -20,7 +21,10 @@ export default function ResumePreview() {
       </div>
       <dialog ref={dialog} className="resume-dialog" aria-label="Résumé preview"
         onClick={e => { if (e.target === e.currentTarget) dialog.current?.close(); }}>
-        <button type="button" className="dialog-close resume-close" onClick={() => dialog.current?.close()} autoFocus aria-label="Close résumé preview"><span aria-hidden="true">✕</span></button>
+        <div className="resume-toolbar">
+            <a className="resume-download" href={resume} download="Zubair-Atha-Resume.pdf" aria-label="Download résumé" title="Download résumé"><Download size={18} aria-hidden="true" /></a>
+            <button type="button" className="dialog-close resume-close" onClick={() => dialog.current?.close()} autoFocus aria-label="Close résumé preview"><X size={18} aria-hidden="true" /></button>
+        </div>
         <object data={`${resume}#toolbar=1&navpanes=0`} type="application/pdf" className="resume-document" aria-label="Zubair Atha résumé PDF">
           <p className="pdf-fallback">Your browser cannot display this PDF inline. <a href={resume} target="_blank" rel="noopener noreferrer">Open the résumé PDF{"\u00a0"}<LinkArrow /></a>.</p>
         </object>
