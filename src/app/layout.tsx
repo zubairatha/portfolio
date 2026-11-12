@@ -15,7 +15,8 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: {
     children: React.ReactNode;
 }) {
-    return (<html lang="en">
+    return (<html lang="en" suppressHydrationWarning>
+      <head><script dangerouslySetInnerHTML={{ __html: `(function(){var t;try{t=localStorage.getItem('portfolio-theme')}catch(e){}document.documentElement.dataset.theme=t==='dark'||(t!=='light'&&window.matchMedia('(prefers-color-scheme: dark)').matches)?'dark':'light'})()` }} /></head>
       <body>
         <a className="skip-link" href="#main-content">Skip to content</a>
         <SiteHeader />
