@@ -1,17 +1,9 @@
 import type { NextConfig } from "next";
 
-const isCI = process.env.GITHUB_ACTIONS === "true";
-const isVercel = process.env.VERCEL === "1";
-const repo = (process.env.GITHUB_REPOSITORY || "").split("/")[1] || "";
-const basePath = isCI && !isVercel ? `/${repo}` : "";
-
 const nextConfig: NextConfig = {
   output: "export",
-  env: { NEXT_PUBLIC_BASE_PATH: basePath },
   trailingSlash: true,
   images: { unoptimized: true },
-  basePath,
-  assetPrefix: basePath ? `${basePath}/` : undefined,
   // Keep Next.js build files separate from the static export in out/.
   distDir: ".next",
 };

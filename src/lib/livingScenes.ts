@@ -5,7 +5,6 @@ type Ripple = Point & { age: number; strength: number };
 type Wake = Point & { age: number };
 
 const TAU = Math.PI * 2;
-const PAPER = "#f1f0e7";
 const INK = "#536c60";
 const CLAY = "#b56d4d";
 const clamp = (value: number, low: number, high: number) => Math.max(low, Math.min(high, value));
@@ -74,8 +73,7 @@ abstract class WaterScene {
   }
   protected water(ctx: CanvasRenderingContext2D, flowing: boolean) {
     ctx.globalAlpha = 1;
-    ctx.fillStyle = PAPER;
-    ctx.fillRect(0, 0, this.width, this.height);
+    ctx.clearRect(0, 0, this.width, this.height);
     const paint = new GlyphPainter(ctx, this.width);
     // Sparse punctuation gives the entire rectangle a water surface.
     for (let y = 18; y < this.height; y += 29) {

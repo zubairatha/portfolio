@@ -1,4 +1,4 @@
-/** Prefix public assets for both root hosting and GitHub Pages exports. */
+/** Public assets are served from the domain root on Cloudflare. */
 export function assetPath(path: string): string {
-  return `${process.env.NEXT_PUBLIC_BASE_PATH || ""}${path}`;
+  return path;
 }

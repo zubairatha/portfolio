@@ -1,4 +1,5 @@
 "use client";
+import LinkArrow from "@/components/LinkArrow";
 
 import Image from "next/image";
 import { useRef, useState } from "react";
@@ -31,7 +32,7 @@ export default function PhotoAlbum({ album }: { album: Album }) {
                 <Image src={assetPath(item.src)} alt={item.alt} width={item.width} height={item.height} loading={position < 2 ? "eager" : "lazy"} sizes={gridSizes(position % 7 === 0)} />
               </picture>
             </span>
-            <span className="photo-caption"><span>{String(position + 1).padStart(2, "0")}</span><span aria-hidden="true">↗</span></span>
+            <span className="photo-caption"><span>{String(position + 1).padStart(2, "0")}</span><span aria-hidden="true"><LinkArrow /></span></span>
           </button>
         ))}
       </div>

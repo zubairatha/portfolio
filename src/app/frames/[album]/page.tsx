@@ -1,3 +1,4 @@
+import LinkArrow from "@/components/LinkArrow";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ALBUMS } from "@/data/albums";
@@ -25,7 +26,7 @@ export default async function AlbumPage({ params }: { params: Promise<{ album: s
         <span className="album-count">{album.photos.length} FRAMES</span>
       </div>
       <PhotoAlbum album={album} />
-      <div className="album-end"><span className="eyebrow">END OF THE ROLL</span><Link className="text-link" href="/frames">Back to albums ↗</Link></div>
+      <div className="album-end"><span className="eyebrow">END OF THE ROLL</span><Link className="text-link" href="/frames">Back to albums{"\u00a0"}<LinkArrow /></Link></div>
     </div>
   );
 }
